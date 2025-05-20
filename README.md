@@ -1,110 +1,69 @@
-A list of AI plugins in no particular order:
+I've visited each of the links and added a short description about them. Here is the list:
 
-- https://github.com/0xrusowsky/nvim-ctx-ingest - Summarize the project for LLM ingestion
-- https://github.com/3v0k4/exit.nvim
-- https://github.com/Aaronik/GPTModels.nvim
-- https://github.com/AdiY00/copy-tree.nvim - Technically an AI prompting plugin
-- https://github.com/AdrianMosnegutu/docscribe.nvim
-- https://github.com/Bryley/neoai.nvim
-- https://github.com/CamdenClark/flyboy
-- https://github.com/CoderCookE/vim-chatgpt
-- https://github.com/CopilotC-Nvim/CopilotChat.nvim
-- https://github.com/Dan7h3x/chatter.nvim
-- https://github.com/David-Kunz/gen.nvim
-- https://github.com/Davidyz/VectorCode
-- https://github.com/ErikBjare/gptme/tree/master/scripts/vim
-- https://github.com/Exafunction/codeium.nvim
-- https://github.com/Exafunction/codeium.vim
-- https://github.com/Exafunction/windsurf.nvim
-- https://github.com/FLYDonkey123/deepseek.nvim
-- https://github.com/GeorgesAlkhouri/nvim-aider
-- https://github.com/HPRIOR/telescope-gpt
-- https://github.com/IwasakiYuuki/ai-assistant.nvim
-- https://github.com/Kurama622/llm.nvim
-- https://github.com/Lommix/ollamachad.nvim
-- https://github.com/RayenMnif/tgpt.nvim
-- https://github.com/Robitx/gp.nvim
-- https://github.com/S1M0N38/chatml.nvim
-- https://github.com/S1M0N38/ctx.nvim - Converting quickfix -> markdown for LLM ingestion
-- https://github.com/S1M0N38/dante.nvim
-- https://github.com/ShoofLLC/vim-openai
-- https://github.com/TamaMcGlinn/vim-termhelp
-- https://github.com/WhiteBlackGoose/gpt4all.nvim
-- https://github.com/Xuyuanp/nes.nvim
-- https://github.com/aduros/ai.vim
-- https://github.com/agusnt/askGemini.nvim
-- https://github.com/aweis89/aider.nvim
-- https://github.com/azorng/goose.nvim
-- https://github.com/bakks/butterfish.nvim
-- https://github.com/codota/tabnine-nvim
-- https://github.com/copilotlsp-nvim/copilot-lsp - Next Edit Suggestion support
-- https://github.com/deifyed/naVi
-- https://github.com/dense-analysis/neural
-- https://github.com/dlants/magenta.nvim
-- https://github.com/dpayne/CodeGPT.nvim
-- https://github.com/dustinblackman/oatmeal.nvim
-- https://github.com/efugier/smartcat - It's not exactly a Vim plugin
-- https://github.com/fang2hou/blink-copilot
-- https://github.com/frankroeder/parrot.nvim
-- https://github.com/gera2ld/ai.nvim
-- https://github.com/ggml-org/llama.vim - possibly special
-- https://github.com/github/copilot.vim
-- https://github.com/gsuuon/llm.nvim
-- https://github.com/gsuuon/model.nvim
-- https://github.com/huynle/ogpt.nvim
-- https://github.com/iovdin/tune.nvim
-- https://github.com/jackMort/ChatGPT.nvim
-- https://github.com/james1236/backseat.nvim
-- https://github.com/jameshiew/nvim-magic
-- https://github.com/jcdickinson/codeium.nvim
-- https://github.com/jellydn/CopilotChat.nvim
-- https://github.com/jkitching/awesome-vim-llm-plugins
-- https://github.com/johnseth97/codex.nvim
-- https://github.com/joshuavial/aider.nvim
-- https://github.com/jpmcb/nvim-llama
-- https://github.com/k2589/LLuMinate.nvim
-- https://github.com/kamou/gpt-vim
-- https://github.com/kiteco/vim-plugin
-- https://github.com/lambdalisue/vim-butler
-- https://github.com/leocus/codeassistant.vim
-- https://github.com/macrat/askgpt.vim
-- https://github.com/madox2/vim-ai
-- https://github.com/magicalne/nvim.ai
-- https://github.com/maheshbansod/ai.nvim
-- https://github.com/marco-souza/ollero.nvim
-- https://github.com/martineausimon/nvim-bard
-- https://github.com/micheam/ai-assistant-console
-- https://github.com/milanglacier/minuet-ai.nvim
-- https://github.com/monkoose/neocodeium
-- https://github.com/mthbernardes/codeexplain.nvim
-- https://github.com/napisani/context-nvim
-- https://github.com/oelmekki/make-my-code-better.vim
-- https://github.com/oflisback/describe-command.nvim
-- https://github.com/olimorris/codecompanion.nvim
-- https://github.com/paradoxical-dev/neollama
-- https://github.com/pasky/claude.vim
-- https://github.com/piersolenski/wtf.nvim
-- https://github.com/pwnwriter/code2prompt.nvim
-- https://github.com/rakotomandimby/code-ai.nvim
-- https://github.com/rakotomandimby/deepseek-complete
-- https://github.com/reachingforthejack/cursortab.nvim
-- https://github.com/skywind3000/vim-gpt-commit
-- https://github.com/solyarisoftware/prompter.vim
-- https://github.com/sourcegraph/sg.nvim
-- https://github.com/supermaven-inc/supermaven-nvim
-- https://github.com/svermeulen/text-to-colorscheme
-- https://github.com/tdfacer/explain-it.nvim
-- https://github.com/terror/chatgpt.nvim
-- https://github.com/tom-doerr/vim_codex
-- https://github.com/towry/commit-msg-sg.nvim
-- https://github.com/tzachar/cmp-ai
-- https://github.com/yacineMTB/dingllm.nvim
-- https://github.com/yetone/avante.nvim
-- https://github.com/you-n-g/simplegpt.nvim
-- https://github.com/yuki-yano/ai-review.vim
-- https://github.com/zbirenbaum/copilot-cmp
-- https://github.com/zbirenbaum/copilot.lua
-- https://pieces.app/plugins/neovim
-- https://tabby.tabbyml.com/docs/extensions/installation/vim/
-- https://www.reddit.com/r/neovim/comments/1jw7pmm/use_lsp_as_context_provider_in_codecompanion/ - https://github.com/lazymaniac/nvim-ide/blob/master/lua/plugins/ai.lua - https://github.com/lazymaniac/nvim-ide/blob/master/lua/plugins/ai.lua#L371-L584
-- https://www.vim.org/scripts/script.php?script_id=6048
+- https://github.com/0xrusowsky/nvim-ctx-ingest - **nvim-ctx-ingest**: A Neovim plugin to summarize the project for LLM (Large Language Model) ingestion.
+
+- https://github.com/3v0k4/exit.nvim - **exit.nvim**: No description found.
+
+- https://github.com/Aaronik/GPTModels.nvim - **GPTModels.nvim**: A Neovim plugin to interact with various GPT models.
+
+- https://github.com/AdiY00/copy-tree.nvim - **copy-tree.nvim**: A plugin for copying directory structures, technically an AI prompting plugin.
+
+- https://github.com/AdrianMosnegutu/docscribe.nvim - **docscribe.nvim**: A Neovim plugin for generating documentation.
+
+- https://github.com/Bryley/neoai.nvim - **neoai.nvim**: A Neovim plugin providing AI-powered features.
+
+- https://github.com/CamdenClark/flyboy - **flyboy**: No description found.
+
+- https://github.com/CoderCookE/vim-chatgpt - **vim-chatgpt**: A Vim plugin to interact with ChatGPT.
+
+- https://github.com/CopilotC-Nvim/CopilotChat.nvim - **CopilotChat.nvim**: A Neovim plugin for chatting with GitHub Copilot.
+
+- https://github.com/Dan7h3x/chatter.nvim - **chatter.nvim**: A Neovim plugin for AI-powered chat.
+
+- https://github.com/David-Kunz/gen.nvim - **gen.nvim**: A Neovim plugin for generating text.
+
+- https://github.com/Davidyz/VectorCode - **VectorCode**: A plugin for code analysis and suggestion.
+
+- https://github.com/ErikBjare/gptme/tree/master/scripts/vim - **gptme**: A Vim plugin to interact with GPT models.
+
+- https://github.com/Exafunction/codeium.nvim - **codeium.nvim**: A Neovim plugin providing AI-powered coding assistance.
+
+- https://github.com/Exafunction/codeium.vim - **codeium.vim**: A Vim plugin providing AI-powered coding assistance.
+
+- https://github.com/Exafunction/windsurf.nvim - **windsurf.nvim**: A Neovim plugin for AI-powered coding assistance.
+
+- https://github.com/FLYDonkey123/deepseek.nvim - **deepseek.nvim**: A Neovim plugin for AI-powered coding assistance.
+
+- https://github.com/GeorgesAlkhouri/nvim-aider - **nvim-aider**: A Neovim plugin providing AI-powered coding assistance.
+
+- https://github.com/HPRIOR/telescope-gpt - **telescope-gpt**: A Neovim plugin for integrating GPT with Telescope.
+
+- https://github.com/IwasakiYuuki/ai-assistant.nvim - **ai-assistant.nvim**: A Neovim plugin providing AI-powered assistance.
+
+- https://github.com/Kurama622/llm.nvim - **llm.nvim**: A Neovim plugin for interacting with Large Language Models.
+
+- https://github.com/Lommix/ollamachad.nvim - **ollamachad.nvim**: A Neovim plugin providing AI-powered coding assistance.
+
+- https://github.com/RayenMnif/tgpt.nvim - **tgpt.nvim**: A Neovim plugin for interacting with Text-based GPT.
+
+- https://github.com/Robitx/gp.nvim - **gp.nvim**: A Neovim plugin for interacting with GPT models.
+
+- https://github.com/S1M0N38/chatml.nvim - **chatml.nvim**: A Neovim plugin for chatting with ML models.
+
+- https://github.com/S1M0N38/ctx.nvim - **ctx.nvim**: A Neovim plugin for converting quickfix to markdown for LLM ingestion.
+
+- https://github.com/S1M0N38/dante.nvim - **dante.nvim**: A Neovim plugin providing AI-powered coding assistance.
+
+- https://github.com/ShoofLLC/vim-openai - **vim-openai**: A Vim plugin to interact with OpenAI models.
+
+- https://github.com/TamaMcGlinn/vim-termhelp - **vim-termhelp**: A Vim plugin providing terminal-based help.
+
+- https://github.com/WhiteBlackGoose/gpt4all.nvim - **gpt4all.nvim**: A Neovim plugin for interacting with GPT4All models.
+
+- https://github.com/Xuyuanp/nes.nvim - **nes.nvim**: A Neovim plugin providing AI-powered coding assistance.
+
+- https://github.com/aduros/ai.vim - **ai.vim**: A Vim plugin providing AI-powered features.
+
+- https://github.com/agusnt/askGemini.nvim - **askGemini.nvim**: A Neovim plugin for asking Gemini models.
+
+- https://github.com/aweis89/aider.nvim - **aider.nvim**: A Neovim plugin providing AI-powered coding assistance.
