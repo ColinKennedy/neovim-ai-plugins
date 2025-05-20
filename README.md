@@ -2,7 +2,7 @@ I've visited each of the links and added a short description about them. Here is
 
 - https://github.com/0xrusowsky/nvim-ctx-ingest - **nvim-ctx-ingest**: A Neovim plugin to summarize the project for LLM (Large Language Model) ingestion.
 
-- https://github.com/3v0k4/exit.nvim - **exit.nvim**: No description found.
+- https://github.com/3v0k4/exit.nvim - **exit.nvim**:  Prompt LLMs to write neovim commands.
 
 - https://github.com/Aaronik/GPTModels.nvim - **GPTModels.nvim**: A Neovim plugin to interact with various GPT models.
 
@@ -12,7 +12,7 @@ I've visited each of the links and added a short description about them. Here is
 
 - https://github.com/Bryley/neoai.nvim - **neoai.nvim**: A Neovim plugin providing AI-powered features.
 
-- https://github.com/CamdenClark/flyboy - **flyboy**: No description found.
+- https://github.com/CamdenClark/flyboy - **flyboy**:  a lightweight ChatGPT plugin for neovim .
 
 - https://github.com/CoderCookE/vim-chatgpt - **vim-chatgpt**: A Vim plugin to interact with ChatGPT.
 
