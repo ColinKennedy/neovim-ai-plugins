@@ -99,10 +99,10 @@ jobs:
         # NOTE: This is the same as ...
         # default_branch="${{ github.event.repository.default_branch }}"
         # #
-        default_branch=`git remote show origin | grep 'HEAD branch' | awk '{print $3}'`
+        default_branch="`git remote show origin | grep 'HEAD branch' | awk '{print $3}'`"
 
         echo "Making a pull request from $NEW_BRANCH to $default_branch"
 
         curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
-          -d '{"title":"'"$title"'","body":"'"$body"'","head":"'"$NEW_BRANCH"'","base":"$default_branch"}' \
+          -d "{\"title\":\"$title\",\"body\":\"$body\",\"head\":\"$NEW_BRANCH\",\"base\":\"$default_branch\"}" \
           https://api.github.com/repos/${{ github.repository }}/pulls
