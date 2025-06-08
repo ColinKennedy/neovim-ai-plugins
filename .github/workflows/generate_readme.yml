@@ -13,44 +13,23 @@ on:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
 
 jobs:
-  generate:
-    name: Generate README.md File
+  generate_and_push:
+    name: Generate + Push README.md File
+    needs: generate
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    if: ${{ github.event_name == 'pull_request' }}
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@master
+    - name: Generate README.md File
+      uses: ./.github/actions/generate_readme
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
+    - name: Commit + Push Changes
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        python-version: 3.11
-        cache: pip
-
-    - name: Install Dependencies
-      run: python -m pip install -r requirements.txt
-
-    - name: Generate README.md
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: make generate_readme
-
-  # TODO: Add this back
-  # generate_and_push:
-  #   name: Generate + Push README.md File
-  #   needs: generate
-  #   runs-on: ubuntu-latest
-  #   if: ${{ github.event_name == 'pull_request' }}
-  #
-  #   steps:
-  #   - name: Commit + Push Changes
-  #     uses: stefanzweifel/git-auto-commit-action@v5
-  #     with:
-  #       commit_message: "docs(readme): Auto-generate plugins list"
-  #       commit_user_name: "github-actions[bot]"
-  #       commit_user_email: "github-actions[bot]@users.noreply.github.com"
-  #       commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+        commit_message: "docs(readme): Auto-generate plugins list"
+        commit_user_name: "github-actions[bot]"
+        commit_user_email: "github-actions[bot]@users.noreply.github.com"
+        commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
 
   create_pull_request:
     name: Create Pull Request
@@ -61,6 +40,9 @@ jobs:
       NEW_BRANCH: automatically_update_readme
 
     steps:
+    - name: Generate README.md File
+      uses: ./.github/actions/generate_readme
+
     - name: Check For File Changes
       id: check_changes
       run: |
