@@ -1,28 +1,4 @@
-# TODO: Finish this
-# - Get list of plugins
-# - Clone / download them all
-# - read their README(s) to get an overview of what they do
-#  - Fallback: read their GitHub description, if it's from GitHub
-#  - Fallback: add "<No description found>"
-# - Ellide the description if it's too long
-#
-# - Use an AI or something to guess which group a plugin primarily belongs to.
-#  - code writing and editing
-#  - conversation-focused
-#  - tab completion
-#  - other
-#
-# - Write header
-#  - Explain this repository + also add the latest datetime generated
-#
-# e.g. data from - https://github.com/jkitching/awesome-vim-llm-plugins
-# - star count
-# - tags. e.g. #inline #model:foo
-# - status (WIP or not)
-#
-# Using the data above, generate the README.md again. Probably use tree-sitter + parso
-#
-# Make a GitHub action runner. Runs once a week
+"""Recreate the ``README.md`` file whenever this Python script runs."""
 
 from __future__ import annotations
 
@@ -76,19 +52,25 @@ class _Model:
     """An AI model, used to generate code and other text.
 
     Attributes:
-        search_term: The string used to "find" the model in a plugin's documentation.
+        search_terms: The strings used to "find" the model in a plugin's documentation.
         name: The real, unabridged name of the model.
         url: The page online where you can learn more about the model.
 
     """
 
-    search_term: str | None
+    search_terms: typing.Sequence[str] | str | None
     name: str
     url: str
 
-    def get_search_term(self) -> str:
+    def get_search_terms(self) -> list[str]:
         """Get the string used to "find" the model in a plugin's documentation."""
-        return self.search_term or self.name
+        if not self.search_terms:
+            return [self.name]
+
+        if isinstance(self.search_terms, str):
+            return [self.search_terms]
+
+        return list(self.search_terms)
 
     def serialize_to_markdown_tag(self) -> str:
         """Link to where the user can learn more about the model."""
@@ -96,11 +78,17 @@ class _Model:
 
 
 _MODELS = (
-    _Model(search_term="claude", name="Claude", url="https://claude.ai"),
-    _Model(search_term="deepseek", name="DeepSeek", url="https://chat.deepseek.com"),
-    _Model(search_term="ollama", name="Ollama", url="https://ollama.com"),
-    _Model(search_term="openai", name="OpenAI", url="https://openai.com"),
-    _Model(search_term="tabnine", name="TabNine", url="https://www.tabnine.com"),
+    _Model(search_terms="claude", name="Claude", url="https://claude.ai"),
+    _Model(search_terms="deepseek", name="DeepSeek", url="https://chat.deepseek.com"),
+    _Model(search_terms="ollama", name="Ollama", url="https://ollama.com"),
+    _Model(search_terms="openai", name="OpenAI", url="https://openai.com"),
+    _Model(search_terms="tabnine", name="TabNine", url="https://www.tabnine.com"),
+    _Model(
+        search_terms=("codeium", "windsurf"),
+        name="Windsurf",
+        url="https://windsurf.com",
+    ),
+    _Model(search_terms=("codium", "qodo"), name="Qodo", url="https://www.qodo.ai"),
 )
 
 
@@ -586,7 +574,11 @@ def _get_models(documentation: typing.Iterable[str]) -> set[_Model]:
 
     for page in documentation:
         lowered = page.lower()
-        output.update(model for model in _MODELS if model.get_search_term() in lowered)
+        output.update(
+            model
+            for model in _MODELS
+            if any(term for term in model.get_search_terms() if term in lowered)
+        )
 
     return output
 
