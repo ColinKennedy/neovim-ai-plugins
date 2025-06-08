@@ -71,7 +71,10 @@ jobs:
       if: ${{ steps.check_changes.outputs.changes == 'true' }}
       run: |
         # Create / Recreate the branch
-        git branch -D $NEW_BRANCH
+        if git rev-parse --verify $NEW_BRANCH >/dev/null 2>&1; then
+          git branch -D $NEW_BRANCH
+        fi
+
         git checkout -b $NEW_BRANCH
         git add -u .
         git commit -m "docs(readme): Auto-generate plugins list"
