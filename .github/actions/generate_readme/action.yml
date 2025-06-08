@@ -19,5 +19,5 @@ runs:
 
     - name: Generate README.md
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
       run: make generate_readme
