@@ -27,35 +27,52 @@
 from __future__ import annotations
 
 from urllib import parse
+import argparse
 import collections
 import dataclasses
 import datetime
 import enum
+import itertools
+import logging
 import os
 import re
+import shlex
 import shutil
 import subprocess
+import sys
 import tempfile
 import textwrap
 import typing
 
 import requests
 import tree_sitter
+import tree_sitter_html
 import tree_sitter_markdown
 
 
 _ALL_PLUGINS_MARKER = "All Plugins"
-_BULLETPOINT_EXPRESSION = re.compile("^\s*-\s*(?P<model>.+)$")
+_BULLETPOINT_EXPRESSION = re.compile("^\s*-\s*(?P<text>.+)$")
 _CURRENT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 _ENCODING = "utf-8"
-_LANGUAGE = tree_sitter.Language(tree_sitter_markdown.language())
-_OKAY_HTTP_STATUS = 200
+
 _GITHUB_PATTERNS = (
     re.compile(r"^https?://github\.com/"),
     re.compile(r"^git@github\.com:"),
     re.compile(r"^git://github\.com/"),
 )
+
+_HTML_LANGUAGE = tree_sitter.Language(tree_sitter_html.language())
+_MARKDOWN_LANGUAGE = tree_sitter.Language(tree_sitter_markdown.language())
+
+# TODO: Add more examples here later
+_MODELS = (
+    ("deepseek", "DeepSeek"),
+    ("openai", "OpenAI"),
+)
+
+_OKAY_HTTP_STATUS = 200
 T = typing.TypeVar("T")
+_LOGGER = logging.getLogger(__name__)
 
 
 class _AiModel:
@@ -75,7 +92,33 @@ class _AiModel:
         return f"`#model:{self._name}`"
 
 
-class _PrimaryCategory(str, enum.Enum):
+class _GitHubRepositoryDetails(typing.TypedDict):
+    """Summarized repository information from GitHub.
+
+    Attributes:
+        description: The user's chosen description, if any.
+        stargazers_count: The number of user stars, it's a 0-or-more value.
+
+    """
+    description: str
+    stargazers_count: int
+
+
+@dataclasses.dataclass(frozen=True, kw_only=True)
+class _ParsedArguments:
+    """The user's terminal input, parsed as Python object.
+
+    Attributes:
+        directory: The folder where any cloned / download artifacts will go under.
+
+    """
+
+    directory: str
+
+
+class _Category(str, enum.Enum):
+    """The expected "types" of AI plugin."""
+
     code_editting = "code-editting"
     auto_completion = "auto-completion"
     communication = "communication / chat"
@@ -107,10 +150,11 @@ class _NodeWrapper:
                 If it's an int, it's an exact index to a ``tree-sitter`` child node.
 
         Raises:
-            RuntimeError: [TODO:throw]
+            RuntimeError: If no child could be found.
 
         Returns:
-            [TODO:return]
+            The inner child, returned as a wrapped node.
+
         """
         if isinstance(path, (str, int)):
             path = [path]
@@ -156,18 +200,23 @@ class _GitHubRow:
     last_commit_date: str
     models: set[_AiModel]
     name: str
-    star_count: str
+    star_count: int
     status: str
+    url: str
+
+    def get_repository_label(self) -> str:
+        return f"[{self.name}]({self.url})"
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
-class _Repository:
+class _GitHubRepository:
     """A small abstraction over a git repository."""
 
     directory: str
     documentation: list[str]
     name: str
     owner: str
+    url: str
 
 
 class _Status(str, enum.Enum):
@@ -190,6 +239,9 @@ class _Tables:
 
     github: dict[str, list[_GitHubRow]]
     unknown: list[_UnknownRow]
+
+    def is_empty(self) -> bool:
+        return not self.github and not self.unknown
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
@@ -251,21 +303,17 @@ def _find_documentation(directory: str) -> list[str]:
     return output
 
 
-def _get_description(repository: _Repository) -> str:
-    raise NotImplementedError("TODO")
-
-
-def _get_description_summary(repository: _Repository) -> str | None:
+def _get_description_summary(details: _GitHubRepositoryDetails) -> str | None:
     """Explain ``repository`` as simply as possible.
 
     Args:
-        repository: Some git repository / codebase to load.
+        details: Some git repository / codebase to load.
 
     Returns:
         The summary found summary, if any.
 
     """
-    description = _get_description(repository)
+    description = details["description"]
 
     if not description:
         return None
@@ -275,14 +323,16 @@ def _get_description_summary(repository: _Repository) -> str | None:
     if len(description) <= length:
         return description
 
-    prompt = textwrap.dedent(
-        f"""\
-        Summarize this documentation string to {length} or less: {description}
-        """
-    )
-    result = _ask_ai(prompt)
-
-    return _get_ellided_text(result, length)
+    return _get_ellided_text(description, length)
+    # TODO: Add support for this later
+    # prompt = textwrap.dedent(
+    #     f"""\
+    #     Summarize this documentation string to {length} or less: {description}
+    #     """
+    # )
+    # result = _ask_ai(prompt)
+    #
+    # return _get_ellided_text(result, length)
 
 
 def _get_ellided_text(text: str, max: int) -> str:
@@ -331,6 +381,56 @@ def _get_first_child_of_type(
     raise ValueError(f'Could not find "{type_name}" child in "{node}"')
 
 
+def _get_github_repository_details(repository: _GitHubRepository) -> _GitHubRepositoryDetails:
+    """Get all of the main data from some GitHub ``repository``.
+
+    Args:
+        repository: A public GitHub to query from.
+
+    Raises:
+        RuntimeError: If ``repository`` cannot be queried for data.
+
+    Returns:
+        All of the information (repository description, stars, etc).
+
+    """
+    url = f"https://api.github.com/repos/{repository.owner}/{repository.name}"
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    response = requests.get(url, headers=headers)
+    code = response.status_code
+
+    if code != _OKAY_HTTP_STATUS:
+        raise RuntimeError(
+            f'Could not get details for "{repository.name}" repository. Got "{code}" code.',
+        )
+
+    return typing.cast(_GitHubRepositoryDetails, response.json())
+
+
+def _get_html_wrapper(node: tree_sitter.Node) -> _NodeWrapper:
+    """Re-parse markdown ``node`` as HTML, instead.
+
+    Args:
+        node: Some markdown, parent ``tree-sitter`` node root.
+
+    Raises:
+        RuntimeError: If we cannot parse ``node`` for HTML.
+
+    Returns:
+        The resulting HTML ``tree-sitter`` wrapper.
+
+    """
+    parser = tree_sitter.Parser(_HTML_LANGUAGE)
+    text = node.text
+
+    if not text:
+        raise RuntimeError(f'Node "{node}" has no text.')
+
+    tree = parser.parse(text)
+
+    return _NodeWrapper(tree.root_node, text)
+
+
 def _get_last_commit_date(directory: str) -> str:
     """Get the year, month, and day of the latest commit of some git ``directory``.
 
@@ -341,7 +441,7 @@ def _get_last_commit_date(directory: str) -> str:
         The date in the form of ``"YYYY-MM-DD"``.
 
     """
-    return _git("show -s --format=%cd --date=format:'%Y-%m-%d' HEAD", directory)
+    return _git("show -s --format=%cd --date=format:'%Y-%m-%d' HEAD", directory).strip()
 
 
 def _get_models(documentation: typing.Iterable[str]) -> set[_AiModel]:
@@ -355,52 +455,63 @@ def _get_models(documentation: typing.Iterable[str]) -> set[_AiModel]:
 
     """
 
-    def _validate_results(lines: str) -> set[str]:
-        output: set[str] = set()
-
-        for line in lines.split("\n"):
-            line = line.strip()
-
-            if not line:
-                continue
-
-            match = _BULLETPOINT_EXPRESSION.match(line)
-
-            if not match:
-                raise RuntimeError(
-                    f'line "{line}" from "{lines}" is not a bulletpoint list entry.'
-                )
-
-            output.add(match.group("model").strip())
-
-        return output
-
     output: set[str] = set()
 
-    template = textwrap.dedent(
-        """\
-        Here is a page of documentation for some Neovim plugin, below. It probably
-        describes some AI features and also which models it supports.
-
-        ````
-        {page}
-        ````
-
-        Please output a bulletpoint list of models that this page supports. For example:
-
-        - deepseek
-        - llama
-        - openai
-
-        Output just the bulletpoint list. Do not say anything else.
-        """
-    )
-
     for page in documentation:
-        results = _ask_ai(template.format(page=page))
-        output.update(sorted(_validate_results(results)))
+        lowered = page.lower()
+
+        for alias, real in _MODELS:
+            if alias in lowered:
+                output.add(real)
 
     return set(_AiModel(name=name) for name in output)
+
+    # TODO: Consider using AI to find the models later
+    # def _validate_results(lines: str) -> set[str]:
+    #     output: set[str] = set()
+    #
+    #     for line in lines.split("\n"):
+    #         line = line.strip()
+    #
+    #         if not line:
+    #             continue
+    #
+    #         match = _BULLETPOINT_EXPRESSION.match(line)
+    #
+    #         if not match:
+    #             raise RuntimeError(
+    #                 f'line "{line}" from "{lines}" is not a bulletpoint list entry.'
+    #             )
+    #
+    #         output.add(match.group("text").strip())
+    #
+    #     return output
+    #
+    # output: set[str] = set()
+    #
+    # template = textwrap.dedent(
+    #     """\
+    #     Here is a page of documentation for some Neovim plugin, below. It probably
+    #     describes some AI features and also which models it supports.
+    #
+    #     ````
+    #     {page}
+    #     ````
+    #
+    #     Here is the list of AI models that you can include in the output. Absolutely do
+    #     not include any text that does not match one of the following:
+    #
+    #     - deepseek
+    #     - llama
+    #     - openai
+    #     """
+    # )
+    #
+    # for page in documentation:
+    #     results = _ask_ai(template.format(page=page))
+    #     output.update(sorted(_validate_results(results)))
+    #
+    # return set(_AiModel(name=name) for name in output)
 
 
 def _get_plugin_urls(lines: bytes) -> list[str] | None:
@@ -436,36 +547,64 @@ def _get_plugin_urls(lines: bytes) -> list[str] | None:
     #       (end_tag
     #         (tag_name))))
     #
-    parser = tree_sitter.Parser(_LANGUAGE)
-    tree = parser.parse(lines)
-    all_plugins_marker = _ALL_PLUGINS_MARKER.encode()
+    def _get_plugins_text(lines: bytes) -> str | None:
+        parser = tree_sitter.Parser(_MARKDOWN_LANGUAGE)
+        tree = parser.parse(lines)
+        all_plugins_marker = _ALL_PLUGINS_MARKER.encode()
 
-    for node in _iter_all_nodes(tree.root_node):
-        if node.type != "html_block":
-            continue
+        for node in _iter_all_nodes(tree.root_node):
+            if node.type != "html_block":
+                continue
 
-        wrapper = _NodeWrapper(node, lines)
-        element = wrapper.get(["document", "element"])
-        tag = element.get(["start_tag", "tag_name"])
+            wrapper = _get_html_wrapper(node)
+            outer_tag = wrapper.get(["element", "start_tag", "tag_name"])
 
-        if (
-            tag.text() == b"summary"
-            and element.text(["element", "text"]) == all_plugins_marker
-        ):
-            text = tag.get("text").text().decode(_ENCODING)
+            if outer_tag.text() != b"details":
+                continue
 
-            return text.split("\n")
+            outer_element = wrapper.get("element")
+            element = outer_element.get("element")
+            tag = element.get(["start_tag", "tag_name"])
 
-    return None
+            if (
+                tag.text() != b"summary"
+                or element.text("text") != all_plugins_marker
+            ):
+                continue
+
+            return outer_element.get("text").text().decode(_ENCODING)
+
+        return None
+
+    text = _get_plugins_text(lines)
+
+    if not text:
+        return None
+
+    output: list[str] = []
+
+    for line in text.split("\n"):
+        match = _BULLETPOINT_EXPRESSION.match(line)
+
+        if not match:
+            raise RuntimeError(
+                f'Got unexpected line "{line}", '
+                f'expected to parse with "{_BULLETPOINT_EXPRESSION.pattern}" regex.',
+            )
+
+        output.append(match.group("text"))
+
+    return output
 
 
 def _get_primary_category(documentation: typing.Iterable[str]) -> str:
-    raise NotImplementedError("TODO: finish")
+    return _Category.unknown
 
-    # categories = list(_PrimaryCategory)
+    # TODO: Add code for this later
+    # categories = lest(_Category)
     #
     # for lines in documentation:
-    #     result = ai.ask("Which of these categories would you say this plugin is? Answer 0 for I don't know, 1, 2, 3 etc'", lines)
+    #     result = _ask_ai("Which of these categories would you say this plugin is? Answer 0 for I don't know, 1, 2, 3 etc'", lines)
     #
     #     try:
     #         response = int(result)
@@ -475,7 +614,7 @@ def _get_primary_category(documentation: typing.Iterable[str]) -> str:
     #     if response:
     #         return categories[response]
     #
-    # return _PrimaryCategory.unknown
+    # return _Category.unknown
 
 
 def _get_reader_header(plugins: typing.Iterable[str]) -> str:
@@ -523,41 +662,9 @@ def _get_readme_path() -> str:
     raise EnvironmentError(f'Path "{path}" does not exist.')
 
 
-def _get_star_count(repository: _Repository) -> str:
-    """Get the GitHub star count from ``repository``.
-
-    Args:
-        repository: Each GitHub URL.
-
-    Raises:
-        RuntimeError: If ``repository`` cannot be queried for stars.
-
-    Returns:
-        The found, 0-or-more star-count.
-
-    """
-    url = f"https://api.github.com/repos/{repository.owner}/{repository.name}"
-    headers = {"Accept": "application/vnd.github.v3+json"}
-    response = requests.get(url, headers=headers)
-    code = response.status_code
-
-    if code != _OKAY_HTTP_STATUS:
-        raise RuntimeError(
-            f'Unable to get a star count for "{repository}". Got "{code}" code.',
-        )
-
-    data = response.json()
-    count = data["stargazers_count"]
-
-    if isinstance(count, int):
-        return str(count)
-
-    raise RuntimeError(f'Got unknown "{count}" from "{repository}" repository.')
-
-
-def _get_status(documentation: typing.Iterable[str]) -> str:
-    raise NotImplementedError("TODO: finish")
-
+def _get_status(documentation: typing.Iterable[str]) -> str | None:
+    return None
+    # TODO: Figure this out later
     # for lines in documentation:
     #     if ai.ask("is this plugin WIP or under construction? Reply with 0 or 1", lines) == "1":
     #         return _Status.wip
@@ -584,7 +691,7 @@ def _get_tables_as_lines(tables: _Tables) -> list[str]:
     output: list[str] = []
 
     for name, rows in sorted(tables.github.items()):
-        header = f"{name}\n{'=' * len(name)}"
+        header = f"{name.capitalize()}\n{'=' * len(name)}"
         table = _serialize_github_table(rows)
 
         if not table:
@@ -617,6 +724,7 @@ def _get_table_data(plugins: typing.Iterable[str], root: str | None = None) -> _
     unknown: list[_UnknownRow] = []
 
     root = root or tempfile.mkdtemp(suffix="_neovim_ai_plugin_repositories")
+    repositories: list[_GitHubRepository] = []
 
     for url in plugins:
         if not _is_github(url):
@@ -624,9 +732,12 @@ def _get_table_data(plugins: typing.Iterable[str], root: str | None = None) -> _
 
             continue
 
-        repository = _download(url, root)
+        repositories.append(_download(url, root))
+
+    for repository in repositories:
+        details = _get_github_repository_details(repository)
         directory = repository.directory
-        description = _get_description_summary(repository) or "<No description found>"
+        description = _get_description_summary(details) or "<No description found>"
         description = _get_ellided_text(description, 120)
         category = _get_primary_category(repository.documentation)
         models = _get_models(repository.documentation)
@@ -637,12 +748,38 @@ def _get_table_data(plugins: typing.Iterable[str], root: str | None = None) -> _
                 last_commit_date=_get_last_commit_date(directory),
                 models=models,
                 name=repository.name,
-                star_count=_get_star_count(repository),
-                status=_get_status(repository.documentation),
+                star_count=details["stargazers_count"],
+                status=_get_status(repository.documentation) or "<No status found>",
+                url=repository.url,
             )
         )
 
     return _Tables(github=github, unknown=unknown)
+
+
+def _iter_all_nodes(
+    node: tree_sitter.Node,
+) -> typing.Generator[tree_sitter.Node, None, None]:
+    """Get all children from ``node``, recursively.
+
+    Important:
+        This function is **inclusive**. ``node`` is always included in the result.
+
+    Args:
+        node: Some tree-sitter node to walk down
+
+    Yields:
+        All found children.
+
+    """
+    stack = [node]
+
+    while stack:
+        node = stack.pop()
+
+        yield node
+
+        stack.extend(reversed(node.children))
 
 
 def _ask_ai(prompt: str) -> str:
@@ -658,7 +795,7 @@ def _ask_ai(prompt: str) -> str:
     raise RuntimeError(prompt)
 
 
-def _download(url: str, directory: str) -> _Repository:
+def _download(url: str, directory: str) -> _GitHubRepository:
     """Clone the git ``url`` to ``directory``.
 
     Args:
@@ -673,15 +810,24 @@ def _download(url: str, directory: str) -> _Repository:
     parts = parsed.path.split("/")
     owner = parts[-2]
     name = parts[-1]
-    directory = os.path.join(directory, name)
+    directory = os.path.join(directory, owner, name)
 
-    _git(f"clone {url} {directory}")
+    if not os.path.isdir(directory):
+        _LOGGER.info('Cloning "%s" repository to "%s" directory.', url, directory)
+        _git(f"clone {url} {directory}")
+    else:
+        _LOGGER.info(
+            'Skipped cloning "%s" repository to "%s" directory. It already exists.',
+            url,
+            directory,
+        )
 
-    return _Repository(
+    return _GitHubRepository(
         directory=directory,
         documentation=_find_documentation(directory),
         name=name,
         owner=owner,
+        url=url,
     )
 
 
@@ -708,9 +854,25 @@ def _generate_readme_text(path: str, root: str | None = None) -> str:
         raise RuntimeError(f'Path "{path}" has no parseable plugins list.')
 
     header = _get_reader_header(plugins)
-    tables = _get_tables_as_lines(_get_table_data(plugins, root))
+    table_data = _get_table_data(plugins, root)
 
-    return header + "\n".join(tables)
+    if table_data.is_empty():
+        middle = ""
+    else:
+        tables = _get_tables_as_lines(table_data)
+        middle = "\n\n" + "\n".join(tables)
+
+    return header + middle + textwrap.dedent(
+        """
+
+        ## Generating This List
+        ```sh
+        make generate
+        # Or directly
+        python generate_readme.md --directory /tmp/repositories
+        ```
+        """
+    )
 
 
 def _git(command: str, directory: str | None = None) -> str:
@@ -728,7 +890,7 @@ def _git(command: str, directory: str | None = None) -> str:
 
     """
     process = subprocess.Popen(
-        f"git {command}",
+        ["git", *shlex.split(command)],
         cwd=directory,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -740,6 +902,28 @@ def _git(command: str, directory: str | None = None) -> str:
         raise RuntimeError(f"Got error during git call:\n{stderr}")
 
     return stdout
+
+
+def _parse_arguments(text: typing.Sequence[str]) -> _ParsedArguments:
+    """Convert raw user CLI text into actual Python objects.
+
+    Args:
+        text: Terminal / CLI user input. e.g. ``["--directory", "/tmp/repositories"]``.
+
+    Returns:
+        The parsed settings.
+
+    """
+    parser = argparse.ArgumentParser(description="Options to affect the README.md generator.")
+    parser.add_argument(
+        "--directory",
+        default=tempfile.mkdtemp(suffix="_neovim_ai_plugins"),
+        help="The path on-disk to clone temporary github repositories into.",
+    )
+
+    namespace = parser.parse_args(text)
+
+    return _ParsedArguments(directory=namespace.directory)
 
 
 def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
@@ -755,10 +939,7 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
     if not rows:
         return None
 
-    output = [
-        "| Name | Description | Star Count | Models | Status | Last Commit Date |",
-        "| ---- | ----------- | ---------- | ------ | ------ | ---------------- |",
-    ]
+    tables: list[str] = []
 
     for row in rows:
         models = (
@@ -766,16 +947,21 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
             or "<No AI models were found>"
         )
         parts = [
-            row.name,
+            row.get_repository_label(),
             row.description,
-            row.star_count,
+            f"🌟 {row.star_count}",
             row.status,
             models,
             row.last_commit_date,
         ]
-        output.append(f"| {' | '.join(parts)} |")
+        tables.append(f"| {' | '.join(parts)} |")
 
-    return "\n".join(output)
+    header = [
+        "| Name | Description | Star Count | Models | Status | Last Commit Date |",
+        "| ---- | ----------- | ---------- | ------ | ------ | ---------------- |",
+    ]
+
+    return "\n".join(itertools.chain(header, sorted(tables)))
 
 
 def _validate_environment() -> None:
@@ -808,16 +994,29 @@ def _verify(value: T | None) -> T:
     raise RuntimeError("Expected a value but found None.")
 
 
-def main() -> None:
-    """Generate the README.md."""
+def _main(text: typing.Sequence[str]) -> None:
+    """Generate the README.md.
+
+    Args:
+        text: Raw CLI user input to parse.
+
+    """
     _validate_environment()
+    namespace = _parse_arguments(text)
 
     path = _get_readme_path()
-    data = _generate_readme_text(path)
+    data = _generate_readme_text(path, root=namespace.directory)
 
     with open(path, "w", encoding=_ENCODING) as handler:
         handler.write(data)
 
 
 if __name__ == "__main__":
-    main()
+    _HANDLER = logging.StreamHandler(sys.stdout)
+    _HANDLER.setLevel(logging.INFO)
+    _FORMATTER = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    _HANDLER.setFormatter(_FORMATTER)
+    _LOGGER.addHandler(_HANDLER)
+    _LOGGER.setLevel(logging.INFO)
+
+    _main(sys.argv[1:])
