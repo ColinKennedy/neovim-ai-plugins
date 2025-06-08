@@ -4,11 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     branches:
-    - main
-  # TODO: Remove `push` later
-  push:
-    branches:
-      - first_pass
+    - master
   schedule:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
 
