@@ -40,7 +40,7 @@ jobs:
     name: Generate README.md File
     needs: generate
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == "pull_request" }}
+    if: ${{ github.event_name == 'pull_request' }}
 
     steps:
     - name: Commit + Push Changes
@@ -55,13 +55,13 @@ jobs:
     name: Create Pull Request
     needs: generate
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == "schedule" }}
 
     env:
       NEW_BRANCH: automatically_update_readme
 
     steps:
     - name: Check For File Changes
+      if: ${{ github.event_name == 'schedule' }}
       id: check_changes
       run: |
         if [[ -n "$(git status --porcelain)" ]]; then
