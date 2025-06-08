@@ -93,6 +93,14 @@ _MODELS = (
 
 
 class _GitHubRepositoryDetailsLicense(typing.TypedDict):
+    """A description of the "terms of use" for some git repository.
+
+    Attributes:
+        name: The name of the license, assuming it's a commonly-used license.
+        url: The page where you can learn more about the license.
+
+    """
+
     name: str
     url: str | None
 
@@ -111,6 +119,7 @@ class _GitHubRepositoryDetails(typing.TypedDict):
         default_branch: Usually ``"master"`` or ``"main"``. It's the cloning branch.
         description: The user's chosen description, if any.
         html_str: The raw URL to the repository. (The clone URL).
+        license: A description of the "terms of use" for some git repository.
         name: The name of the repository.
         owner: The user / organization that owns the repository.
         pushed_at: The user's last ``git push``. e.g. ``"2025-06-04T19:41:16Z"``.
@@ -258,6 +267,7 @@ class _GitHubRow:
     url: str
 
     def get_repository_label(self) -> str:
+        """Get a short link to the git repository."""
         return f"[{self.name}]({self.url})"
 
 
