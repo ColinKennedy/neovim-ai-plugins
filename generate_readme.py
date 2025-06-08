@@ -1159,6 +1159,8 @@ def _main(text: typing.Sequence[str]) -> None:
     path = _get_readme_path()
     data = _generate_readme_text(path, root=namespace.directory)
 
+    _LOGGER.info("Generated README.md data\n\n````%s````", data)
+
     with open(path, "w", encoding=_ENCODING) as handler:
         handler.write(data)
 
