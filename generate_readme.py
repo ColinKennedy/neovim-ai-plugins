@@ -92,6 +92,12 @@ _MODELS = (
 )
 
 
+class _GitHubRepositoryDetailsLicense(typing.TypedDict):
+    name: str
+    url: str | None
+
+
+
 class _GitHubRepositoryDetailsOwner(typing.TypedDict):
     """A nested struct that describes a user or organization that owns a repository."""
 
@@ -115,6 +121,7 @@ class _GitHubRepositoryDetails(typing.TypedDict):
     default_branch: str
     description: str
     html_url: str
+    license: _GitHubRepositoryDetailsLicense | None
     name: str
     owner: _GitHubRepositoryDetailsOwner
     pushed_at: str
@@ -243,6 +250,7 @@ class _GitHubRow:
 
     description: str | None
     last_commit_date: str
+    license: _GitHubRepositoryDetailsLicense | None
     models: set[_Model]
     name: str
     star_count: int
@@ -508,6 +516,7 @@ def _get_github_table_rows(
             _GitHubRow(
                 description=description,
                 last_commit_date=_get_last_commit_date(details),
+                license=details.get("license"),
                 models=models,
                 name=repository.name,
                 star_count=details["stargazers_count"],
@@ -1117,21 +1126,35 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
             " ".join(sorted(model.serialize_to_markdown_tag() for model in row.models))
             or "<No AI models were found>"
         )
+
+        license = "`<No license found>`"
+
+        if row.license:
+            license = _get_license_as_markdown(row.license)
+
         parts = [
             row.get_repository_label(),
             row.description or "`<No description found>`",
-            f"🌟 {row.star_count}",
+            f":star2: {row.star_count}",
             models,
             row.last_commit_date,
+            license,
         ]
         tables.append(f"| {' | '.join(parts)} |")
 
     header = [
-        "| Name | Description | Stars | Models | Updated |",
-        "| ---- | ----------- | ----- | ------ | ------- |",
+        "| Name | Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |",
+        "| ---- | ----------- | ------------- | -------------- | -------------- | ----------------------- |",
     ]
 
     return "\n".join(itertools.chain(header, sorted(tables)))
+
+
+def _get_license_as_markdown(license: _GitHubRepositoryDetailsLicense) -> str:
+    if not license["url"]:
+        return license["name"]
+
+    return f"[{license['name']}]({license['url']})"
 
 
 def _validate_environment() -> None:
