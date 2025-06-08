@@ -40,7 +40,7 @@ jobs:
     name: Generate README.md File
     needs: generate
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == "pull_request" }}
 
     steps:
     - name: Commit + Push Changes
@@ -61,7 +61,7 @@ jobs:
 
     steps:
     - name: Check For File Changes
-      if: ${{ github.event_name == 'schedule' }}
+      if: ${{ github.event_name == "schedule" }}
       id: check_changes
       run: |
         if [[ -n "$(git status --porcelain)" ]]; then
@@ -73,12 +73,12 @@ jobs:
         fi
 
     - name: No Changes Deteched - End Early
-      if: steps.check_changes.outputs.changes == "false"
+      if: ${{ steps.check_changes.outputs.changes == "false" }}
       run: |
         echo "We will not make a pull request because no files were changed."
 
     - name: Create A PR Branch
-      if: steps.check_changes.outputs.changes == "true"
+      if: ${{ steps.check_changes.outputs.changes == "true" }}
       run: |
         # Create / Recreate the branch
         git branch -D $NEW_BRANCH
@@ -88,7 +88,7 @@ jobs:
         git push --force origin $NEW_BRANCH
 
     - name: Create Pull Request
-      if: steps.check_changes.outputs.changes == "true"
+      if: ${{ steps.check_changes.outputs.changes == "true" }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
