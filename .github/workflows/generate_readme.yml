@@ -67,11 +67,16 @@ jobs:
       run: |
         echo "We will not make a pull request because no files were changed."
 
+    - name: Setup Git Settings
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+
     - name: Create A PR Branch
       if: ${{ steps.check_changes.outputs.changes == 'true' }}
       run: |
         # Create / Recreate the branch
-        if git rev-parse --verify $NEW_BRANCH >/dev/null 2>&1; then
+        if git rev-parse --verify $NEW_BRANCH > /dev/null 2>&1; then
           git branch -D $NEW_BRANCH
         fi
 
