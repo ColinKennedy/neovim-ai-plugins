@@ -37,7 +37,7 @@ jobs:
       run: make generate_readme
 
   generate_and_push:
-    name: Generate README.md File
+    name: Generate + Push README.md File
     needs: generate
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
