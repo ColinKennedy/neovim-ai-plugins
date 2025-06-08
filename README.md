@@ -146,7 +146,7 @@ Unknown
 | [code-ai.nvim](https://github.com/rakotomandimby/code-ai.nvim) | `<No description found>` | 🌟 4 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2025-06-06 |
 | [code2prompt.nvim](https://github.com/bytehunt/code2prompt.nvim) | ✨ Neovim plugin for mufeedvh/code2prompt  | 🌟 3 | <No AI models were found> | 2024-10-24 |
 | [codeassistant.vim](https://github.com/leocus/codeassistant.vim) | A Vim plugin for a code assistant with local LLMs | 🌟 27 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) | 2024-07-05 |
-| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | ✨ AI-powered coding, seamlessly in Neovim | 🌟 4018 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-06-07 |
+| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | ✨ AI-powered coding, seamlessly in Neovim | 🌟 4019 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-06-07 |
 | [codeexplain.nvim](https://github.com/mthbernardes/codeexplain.nvim) | A nvim plugin Powered by GPT4ALL for Real-time Code Explanation and Vulnerabi... | 🌟 90 | <No AI models were found> | 2023-06-20 |
 | [codex.nvim](https://github.com/johnseth97/codex.nvim) | OpenAI Codex plugin for Neovim | 🌟 42 | [#OpenAI](https://openai.com) | 2025-05-08 |
 | [commit-msg-sg.nvim](https://github.com/towry/commit-msg-sg.nvim) | Let AI write the git commit message for you in Neovim. | 🌟 5 | <No AI models were found> | 2023-12-26 |
@@ -164,7 +164,7 @@ Unknown
 | [describe-command.nvim](https://github.com/oflisback/describe-command.nvim) | Describe what to do in neovim and have OpenAI figure out a command to accompl... | 🌟 16 | [#OpenAI](https://openai.com) | 2024-09-15 |
 | [dingllm.nvim](https://github.com/yacineMTB/dingllm.nvim) | Yacine's LLM nvim scripts | 🌟 867 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2024-10-24 |
 | [docscribe.nvim](https://github.com/AdrianMosnegutu/docscribe.nvim) | A Neovim plugin for generating inline documentation for your functions using ... | 🌟 27 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-05-01 |
-| [exit.nvim](https://github.com/3v0k4/exit.nvim) | Prompt LLMs to write neovim commands | 🌟 16 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2024-12-19 |
+| [exit.nvim](https://github.com/3v0k4/exit.nvim) | Prompt LLMs to write neovim commands | 🌟 16 | <No AI models were found> | 2024-12-19 |
 | [explain-it.nvim](https://github.com/tdfacer/explain-it.nvim) | Simple and effective AI integration with your favorite Neovim text editor! As... | 🌟 18 | [#OpenAI](https://openai.com) | 2025-05-20 |
 | [flyboy](https://github.com/CamdenClark/flyboy) | a lightweight ChatGPT plugin for neovim | 🌟 43 | [#OpenAI](https://openai.com) | 2023-10-31 |
 | [gen.nvim](https://github.com/David-Kunz/gen.nvim) | Neovim plugin to generate text using LLMs with customizable prompts | 🌟 1437 | [#Ollama](https://ollama.com) | 2025-05-03 |
@@ -178,7 +178,6 @@ Unknown
 | [make-my-code-better.vim](https://github.com/oelmekki/make-my-code-better.vim) | Vim plugin using ChatGPT to suggest ways to make your code better | 🌟 3 | [#OpenAI](https://openai.com) | 2023-07-03 |
 | [minuet-ai.nvim](https://github.com/milanglacier/minuet-ai.nvim) | 💃 Dance with Intelligence in Your Code. Minuet offers code completion as-you-... | 🌟 626 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-05-27 |
 | [model.nvim](https://github.com/gsuuon/model.nvim) | Neovim plugin for interacting with LLM's and building editor integrated prompts. | 🌟 372 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-05-20 |
-| [model.nvim](https://github.com/gsuuon/model.nvim) | Neovim plugin for interacting with LLM's and building editor integrated prompts. | 🌟 372 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-05-20 |
 | [naVi](https://github.com/deifyed/naVi) | Your NeoVim assistant | 🌟 39 | <No AI models were found> | 2023-05-16 |
 | [neoai.nvim](https://github.com/Bryley/neoai.nvim) | Neovim plugin for intracting with GPT models from OpenAI | 🌟 573 | <No AI models were found> | 2024-05-11 |
 | [neocodeium](https://github.com/monkoose/neocodeium) | free AI completion plugin for neovim | 🌟 346 | <No AI models were found> | 2025-06-07 |
@@ -187,7 +186,7 @@ Unknown
 | [neural](https://github.com/dense-analysis/neural) | AI Vim/Neovim code generation plugin (OpenAI, ChatGPT, and more) | 🌟 501 | [#OpenAI](https://openai.com) | 2025-05-28 |
 | [nvim-aider](https://github.com/GeorgesAlkhouri/nvim-aider) | 🤖 Seamlessly integrate Aider with Neovim for an enhanced AI-assisted coding e... | 🌟 271 | <No AI models were found> | 2025-06-06 |
 | [nvim-bard](https://github.com/martineausimon/nvim-bard) | A minimal plugin to interact with Google Bard in Neovim | 🌟 29 | <No AI models were found> | 2023-08-29 |
-| [nvim-ctx-ingest](https://github.com/0xrusowsky/nvim-ctx-ingest) | A Neovim plugin for efficiently sharing your project's most relevant context ... | 🌟 30 | [#Claude](https://claude.ai) | 2025-03-18 |
+| [nvim-ctx-ingest](https://github.com/0xrusowsky/nvim-ctx-ingest) | A Neovim plugin for efficiently sharing your project's most relevant context ... | 🌟 30 | <No AI models were found> | 2025-03-18 |
 | [nvim-llama](https://github.com/jpmcb/nvim-llama) | 🦙 Ollama interfaces for Neovim | 🌟 273 | <No AI models were found> | 2025-03-09 |
 | [nvim-magic](https://github.com/jameshiew/nvim-magic) | :genie: Pluggable framework for using AI code assistance in Neovim | 🌟 191 | [#OpenAI](https://openai.com) | 2023-06-08 |
 | [nvim.ai](https://github.com/magicalne/nvim.ai) | Inspired by Zed AI, it allows you to chat with your buffers, insert code with... | 🌟 154 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-02-25 |
@@ -195,11 +194,11 @@ Unknown
 | [ogpt.nvim](https://github.com/huynle/ogpt.nvim) | Chat with Ollama/OpenRouter/Huggingface/TextGen/OpenAI/Gemini/Anthropic GPT N... | 🌟 190 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-01-28 |
 | [ollamachad.nvim](https://github.com/Lommix/ollamachad.nvim) | neovim plugin to chat and prompt with a local or remote ollama ai server. | 🌟 8 | [#Ollama](https://ollama.com) | 2024-12-06 |
 | [ollero.nvim](https://github.com/marco-souza/ollero.nvim) | Ollero is a nvim plugin for integrating Ollama with neovim locally | 🌟 55 | [#Ollama](https://ollama.com) | 2025-01-31 |
-| [parrot.nvim](https://github.com/frankroeder/parrot.nvim) | parrot.nvim 🦜 - the plugin that brings stochastic parrots to Neovim. | 🌟 642 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-06-06 |
+| [parrot.nvim](https://github.com/frankroeder/parrot.nvim) | parrot.nvim 🦜 - the plugin that brings stochastic parrots to Neovim. | 🌟 643 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-06-06 |
 | [prompter.vim](https://github.com/solyarisoftware/prompter.vim) | vim as a perfect large language models prompts playground | 🌟 16 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2023-11-29 |
 | [sg.nvim](https://github.com/sourcegraph/sg.nvim) | Experimental Sourcegraph + Cody plugin for Neovim | 🌟 771 | <No AI models were found> | 2025-01-21 |
 | [simplegpt.nvim](https://github.com/you-n-g/simplegpt.nvim) | You need customized prompts for your tasks! 🤏SimpleGPT is a Vim plugin design... | 🌟 26 | <No AI models were found> | 2025-05-27 |
-| [sllm.nvim](https://github.com/mozanunal/sllm.nvim) | Simple LLM interaction for Neovim. Ask questions, manage context (files, URLs... | 🌟 48 | [#OpenAI](https://openai.com) | 2025-06-07 |
+| [sllm.nvim](https://github.com/mozanunal/sllm.nvim) | Simple LLM interaction for Neovim. Ask questions, manage context (files, URLs... | 🌟 49 | [#OpenAI](https://openai.com) | 2025-06-07 |
 | [smartcat](https://github.com/efugier/smartcat) | Putting a brain behind `cat`🐈‍⬛ Integrating language models in the Unix comma... | 🌟 482 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-02-23 |
 | [supermaven-nvim](https://github.com/supermaven-inc/supermaven-nvim) | The official Neovim plugin for Supermaven | 🌟 1043 | <No AI models were found> | 2024-10-07 |
 | [tabnine-nvim](https://github.com/codota/tabnine-nvim) | Tabnine Client for Neovim | 🌟 401 | [#TabNine](https://www.tabnine.com) | 2025-06-03 |
@@ -215,8 +214,6 @@ Unknown
 | [vim-plugin](https://github.com/kiteco/vim-plugin) | The Kite plugin for Vim. | 🌟 300 | <No AI models were found> | 2021-10-25 |
 | [vim-termhelp](https://github.com/TamaMcGlinn/vim-termhelp) | ChatGPT powered terminal helper to generate and fix linux bash commands | 🌟 2 | <No AI models were found> | 2024-03-17 |
 | [vim_codex](https://github.com/tom-doerr/vim_codex) | Supercharge your Vim editor with AI-powered code completion using OpenAI Code... | 🌟 267 | [#OpenAI](https://openai.com) | 2024-03-28 |
-| [windsurf.nvim](https://github.com/Exafunction/windsurf.nvim) | A native neovim extension for Codeium | 🌟 1096 | <No AI models were found> | 2025-04-30 |
-| [windsurf.nvim](https://github.com/Exafunction/windsurf.nvim) | A native neovim extension for Codeium | 🌟 1096 | <No AI models were found> | 2025-04-30 |
 | [windsurf.nvim](https://github.com/Exafunction/windsurf.nvim) | A native neovim extension for Codeium | 🌟 1096 | <No AI models were found> | 2025-04-30 |
 | [windsurf.vim](https://github.com/Exafunction/windsurf.vim) | Free, ultrafast Copilot alternative for Vim and Neovim | 🌟 4945 | <No AI models were found> | 2025-04-04 |
 | [wtf.nvim](https://github.com/piersolenski/wtf.nvim) | Delicious diagnostic debugging in Neovim 🤤 | 🌟 442 | [#OpenAI](https://openai.com) | 2025-03-17 |
