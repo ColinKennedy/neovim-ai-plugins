@@ -105,7 +105,6 @@ class _GitHubRepositoryDetailsLicense(typing.TypedDict):
     url: str | None
 
 
-
 class _GitHubRepositoryDetailsOwner(typing.TypedDict):
     """A nested struct that describes a user or organization that owns a repository."""
 
