@@ -111,3 +111,11 @@ https://tabby.tabbyml.com/docs/extensions/installation/vim/
 https://www.reddit.com/r/neovim/comments/1jw7pmm/use_lsp_as_context_provider_in_codecompanion/ - https://github.com/lazymaniac/nvim-ide/blob/master/lua/plugins/ai.lua - https://github.com/lazymaniac/nvim-ide/blob/master/lua/plugins/ai.lua#L371-L584
 https://www.vim.org/scripts/script.php?script_id=6048
 </details>
+
+
+## Generating This List
+```sh
+make generate
+# Or directly
+python generate_readme.md
+```
