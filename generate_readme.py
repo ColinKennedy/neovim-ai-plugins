@@ -909,6 +909,15 @@ def _download_github_documentation_files(
     directory: str,
     headers: dict[str, str] | None=None,
 ) -> None:
+    """Search the repository ``details`` for documentation (README) files.
+
+    Args:
+        details: Some git repository / codebase to load from.
+        base_url: A GitHub branch URL. e.g. ``"https://github.com/foo/bar/main"``.
+        directory: A directory to clone into.
+        headers: HTTP request headers. Used for GitHub authentication.
+
+    """
     headers = headers or {}
     os.makedirs(directory, exist_ok=True)
 
