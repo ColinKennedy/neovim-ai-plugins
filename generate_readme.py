@@ -60,17 +60,22 @@ _GITHUB_PATTERNS = (
     re.compile(r"^git@github\.com:"),
     re.compile(r"^git://github\.com/"),
 )
+_GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
 _HTML_LANGUAGE = tree_sitter.Language(tree_sitter_html.language())
 _MARKDOWN_LANGUAGE = tree_sitter.Language(tree_sitter_markdown.language())
 
+_MARKDOWN_FENCE_MARKER = "```"
+
 # TODO: Add more examples here later
 _MODELS = (
+    ("claude", "Claude"),
     ("deepseek", "DeepSeek"),
+    ("ollama", "Ollama"),
     ("openai", "OpenAI"),
+    ("tabnine", "TabNine"),
 )
 
-_OKAY_HTTP_STATUS = 200
 T = typing.TypeVar("T")
 _LOGGER = logging.getLogger(__name__)
 
@@ -92,16 +97,53 @@ class _AiModel:
         return f"`#model:{self._name}`"
 
 
+class _GitHubRepositoryDetailsOwner(typing.TypedDict):
+    """A nested struct that describes a user or organization that owns a repository."""
+
+    login: str
+
+
 class _GitHubRepositoryDetails(typing.TypedDict):
     """Summarized repository information from GitHub.
 
     Attributes:
+        default_branch: Usually ``"master"`` or ``"main"``. It's the cloning branch.
         description: The user's chosen description, if any.
+        html_str: The raw URL to the repository. (The clone URL).
+        name: The name of the repository.
+        owner: The user / organization that owns the repository.
+        pushed_at: The user's last ``git push``. e.g. ``"2025-06-04T19:41:16Z"``.
         stargazers_count: The number of user stars, it's a 0-or-more value.
 
     """
+
+    default_branch: str
     description: str
+    html_url: str
+    name: str
+    owner: _GitHubRepositoryDetailsOwner
+    pushed_at: str
     stargazers_count: int
+
+
+@dataclasses.dataclass(frozen=True, kw_only=True)
+class _GitHubRepositoryRequest:
+    owner: str
+    name: str
+
+    @classmethod
+    def from_url(cls, url: str) -> _GitHubRepositoryRequest:
+        parsed = parse.urlparse(url)
+        parts = parsed.path.split("/")
+        owner = parts[-2]
+        name = parts[-1]
+
+        return cls(owner=owner, name=name)
+
+
+class _GitHubTreeResult(typing.TypedDict):
+    path: str
+    type: str
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
@@ -241,6 +283,7 @@ class _Tables:
     unknown: list[_UnknownRow]
 
     def is_empty(self) -> bool:
+        """Check if at least one table is defined."""
         return not self.github and not self.unknown
 
 
@@ -285,10 +328,16 @@ def _find_documentation(directory: str) -> list[str]:
     Args:
         directory: Some git repository to look within.
 
+    Raises:
+        ValueError: If ``directory`` could not be read.
+
     Returns:
         All found documentation pages, if any.
 
     """
+    if not os.path.isdir(directory):
+        raise ValueError(f'Directory "{directory}" does not exist.')
+
     output: list[str] = []
 
     for name in os.listdir(directory):
@@ -381,11 +430,15 @@ def _get_first_child_of_type(
     raise ValueError(f'Could not find "{type_name}" child in "{node}"')
 
 
-def _get_github_repository_details(repository: _GitHubRepository) -> _GitHubRepositoryDetails:
+def _get_github_repository_details(
+    repository: _GitHubRepositoryRequest,
+    headers: dict[str, str] | None=None,
+) -> _GitHubRepositoryDetails:
     """Get all of the main data from some GitHub ``repository``.
 
     Args:
         repository: A public GitHub to query from.
+        headers: HTTP request headers. Used for GitHub authentication.
 
     Raises:
         RuntimeError: If ``repository`` cannot be queried for data.
@@ -395,16 +448,71 @@ def _get_github_repository_details(repository: _GitHubRepository) -> _GitHubRepo
 
     """
     url = f"https://api.github.com/repos/{repository.owner}/{repository.name}"
-    headers = {"Accept": "application/vnd.github.v3+json"}
-    response = requests.get(url, headers=headers)
-    code = response.status_code
+    headers = headers or {}
+    headers["Accept"] = "application/vnd.github.v3+json"
 
-    if code != _OKAY_HTTP_STATUS:
-        raise RuntimeError(
-            f'Could not get details for "{repository.name}" repository. Got "{code}" code.',
-        )
+    response = requests.get(url, headers=headers, timeout=5)
+    response.raise_for_status()
 
     return typing.cast(_GitHubRepositoryDetails, response.json())
+
+
+def _get_github_repository_file_tree(
+    details: _GitHubRepositoryDetails,
+    headers: dict[str, str] | None=None,
+) -> list[_GitHubTreeResult]:
+    """List the file tree using some repository ``details``.
+
+    Args:
+        details: Some git repository / codebase to load from.
+        headers: HTTP request headers. Used for GitHub authentication.
+
+    Returns:
+        The found file tree. It includes nested paths.
+
+    """
+    headers = headers or {}
+    url = f"https://api.github.com/repos/{details['owner']['login']}/{details['name']}/git/trees/{details['default_branch']}?recursive=1"
+
+    response = requests.get(url, headers=headers, timeout=5)
+    response.raise_for_status()
+
+    return typing.cast(list[_GitHubTreeResult], response.json()["tree"])
+
+
+def _get_github_table_rows(
+    repositories: typing.Iterable[tuple[_GitHubRepositoryDetails, _GitHubRepository]],
+) -> dict[str, list[_GitHubRow]]:
+    """Serialize ``repositories`` to a format that is closer to raw text / markdown.
+
+    Args:
+        repositories: Some GitHub codebases to convert down.
+
+    Returns:
+        All of the Markdown table rows to consider.
+
+    """
+    output: dict[str, list[_GitHubRow]] = collections.defaultdict(list)
+
+    for details, repository in repositories:
+        description = _get_description_summary(details) or "<No description found>"
+        description = _get_ellided_text(description, 120)
+        category = _get_primary_category(repository.documentation)
+        models = _get_models(repository.documentation)
+
+        output[category].append(
+            _GitHubRow(
+                description=description,
+                last_commit_date=_get_last_commit_date(details),
+                models=models,
+                name=repository.name,
+                star_count=details["stargazers_count"],
+                status=_get_status(repository.documentation) or "<No status found>",
+                url=repository.url,
+            )
+        )
+
+    return output
 
 
 def _get_html_wrapper(node: tree_sitter.Node) -> _NodeWrapper:
@@ -431,17 +539,21 @@ def _get_html_wrapper(node: tree_sitter.Node) -> _NodeWrapper:
     return _NodeWrapper(tree.root_node, text)
 
 
-def _get_last_commit_date(directory: str) -> str:
-    """Get the year, month, and day of the latest commit of some git ``directory``.
+def _get_last_commit_date(details: _GitHubRepositoryDetails) -> str:
+    """Get the year, month, and day of the latest commit of some git ``details``.
 
     Args:
-        directory: An absolute path on-disk to some git repository.
+        details: Some git repository / codebase to load datetime data from.
 
     Returns:
         The date in the form of ``"YYYY-MM-DD"``.
 
     """
-    return _git("show -s --format=%cd --date=format:'%Y-%m-%d' HEAD", directory).strip()
+    # Example: raw = "2025-06-04T19:41:16Z"
+    raw = details["pushed_at"]
+    data = datetime.datetime.strptime(raw, "%Y-%m-%dT%H:%M:%SZ")
+
+    return data.strftime("%Y-%m-%d")
 
 
 def _get_models(documentation: typing.Iterable[str]) -> set[_AiModel]:
@@ -584,6 +696,11 @@ def _get_plugin_urls(lines: bytes) -> list[str] | None:
     output: list[str] = []
 
     for line in text.split("\n"):
+        line = line.strip()
+
+        if not line or line == _MARKDOWN_FENCE_MARKER:
+            continue
+
         match = _BULLETPOINT_EXPRESSION.match(line)
 
         if not match:
@@ -636,7 +753,9 @@ def _get_reader_header(plugins: typing.Iterable[str]) -> str:
 
         <details>
         <summary>{_ALL_PLUGINS_MARKER}</summary>
+        ```
         {{plugins}}
+        ```
         </details>
         """
     )
@@ -720,11 +839,15 @@ def _get_table_data(plugins: typing.Iterable[str], root: str | None = None) -> _
         All summaries of all `plugins` to later render as a table.
 
     """
-    github: dict[str, list[_GitHubRow]] = collections.defaultdict(list)
     unknown: list[_UnknownRow] = []
 
     root = root or tempfile.mkdtemp(suffix="_neovim_ai_plugin_repositories")
-    repositories: list[_GitHubRepository] = []
+    repositories: list[tuple[_GitHubRepositoryDetails, _GitHubRepository]] = []
+
+    if _GITHUB_TOKEN:
+        github_headers = {"Authorization": f"token {_GITHUB_TOKEN}"}
+    else:
+        github_headers = {}
 
     for url in plugins:
         if not _is_github(url):
@@ -732,27 +855,12 @@ def _get_table_data(plugins: typing.Iterable[str], root: str | None = None) -> _
 
             continue
 
-        repositories.append(_download(url, root))
+        request = _GitHubRepositoryRequest.from_url(url)
+        details = _get_github_repository_details(request, headers=github_headers)
+        repository = _download_github_files(details, root, headers=github_headers)
+        repositories.append((details, repository))
 
-    for repository in repositories:
-        details = _get_github_repository_details(repository)
-        directory = repository.directory
-        description = _get_description_summary(details) or "<No description found>"
-        description = _get_ellided_text(description, 120)
-        category = _get_primary_category(repository.documentation)
-        models = _get_models(repository.documentation)
-
-        github[category].append(
-            _GitHubRow(
-                description=description,
-                last_commit_date=_get_last_commit_date(directory),
-                models=models,
-                name=repository.name,
-                star_count=details["stargazers_count"],
-                status=_get_status(repository.documentation) or "<No status found>",
-                url=repository.url,
-            )
-        )
+    github = _get_github_table_rows(repositories)
 
     return _Tables(github=github, unknown=unknown)
 
@@ -795,39 +903,70 @@ def _ask_ai(prompt: str) -> str:
     raise RuntimeError(prompt)
 
 
-def _download(url: str, directory: str) -> _GitHubRepository:
+def _download_github_documentation_files(
+    details: _GitHubRepositoryDetails,
+    base_url: str,
+    directory: str,
+    headers: dict[str, str] | None=None,
+) -> None:
+    headers = headers or {}
+    os.makedirs(directory, exist_ok=True)
+
+    for item in _get_github_repository_file_tree(details, headers=headers):
+        if item["type"] != "blob":
+            continue
+
+        if not _is_readme(item["path"]):
+            continue
+
+        url = f"{base_url}/{item['path']}"
+        path = os.path.join(directory, os.path.basename(item["path"]))
+
+        _LOGGER.info('Downloading "%s" path.', item["path"])
+
+        response = requests.get(url, headers=headers, timeout=5)
+        response.raise_for_status()
+
+        with open(path, "wb") as handler:
+            handler.write(response.content)
+
+
+def _download_github_files(
+    details: _GitHubRepositoryDetails,
+    directory: str,
+    headers: dict[str, str] | None=None,
+) -> _GitHubRepository:
     """Clone the git ``url`` to ``directory``.
 
     Args:
-        url: The HTTP / HTTPS / SSH git repository to clone.
+        details: Some git repository / codebase to download.
         directory: A directory to clone into.
+        headers: HTTP request headers. Used for GitHub authentication.
 
     Returns:
         A summary of the cloned git repository.
 
     """
-    parsed = parse.urlparse(url)
-    parts = parsed.path.split("/")
-    owner = parts[-2]
-    name = parts[-1]
-    directory = os.path.join(directory, owner, name)
+    headers = headers or {}
+    directory = os.path.join(directory, details["owner"]["login"], details["name"])
 
     if not os.path.isdir(directory):
+        url = f"https://raw.githubusercontent.com/{details['owner']['login']}/{details['name']}/{details['default_branch']}"
         _LOGGER.info('Cloning "%s" repository to "%s" directory.', url, directory)
-        _git(f"clone {url} {directory}")
+        _download_github_documentation_files(details, url, directory, headers=headers)
     else:
         _LOGGER.info(
             'Skipped cloning "%s" repository to "%s" directory. It already exists.',
-            url,
+            details["html_url"],
             directory,
         )
 
     return _GitHubRepository(
         directory=directory,
         documentation=_find_documentation(directory),
-        name=name,
-        owner=owner,
-        url=url,
+        name=details["name"],
+        owner=details["owner"]["login"],
+        url=details["html_url"],
     )
 
 
@@ -865,11 +1004,12 @@ def _generate_readme_text(path: str, root: str | None = None) -> str:
     return header + middle + textwrap.dedent(
         """
 
+
         ## Generating This List
         ```sh
-        make generate
+        GITHUB_TOKEN="your API token here" make generate
         # Or directly
-        python generate_readme.md --directory /tmp/repositories
+        GITHUB_TOKEN="your API token here" python generate_readme.md --directory /tmp/repositories
         ```
         """
     )
