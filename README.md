@@ -3,6 +3,7 @@ This page is auto-generated and was last updated on "2025-06-08"
 
 <details>
 <summary>All Plugins</summary>
+
 ```
 - https://github.com/0xrusowsky/nvim-ctx-ingest
 - https://github.com/3v0k4/exit.nvim

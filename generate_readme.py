@@ -240,6 +240,14 @@ class _NodeWrapper:
 
         return self._data[self._node.start_byte : self._node.end_byte]
 
+    def __repr__(self) -> str:
+        """Show how to reproduce this instance."""
+        return f"{self.__class__.__name__}({self._node!r}, {self._data!r})"
+
+    def __str__(self) -> str:
+        """Show a concise, "human-readable" version of this instance."""
+        return f"<{self.__class__.__name__} {self._node}>"
+
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
 class _GitHubRow:
@@ -681,12 +689,17 @@ def _get_plugin_urls(lines: bytes) -> list[str] | None:
 
             outer_element = wrapper.get("element")
             element = outer_element.get("element")
-            tag = element.get(["start_tag", "tag_name"])
+            tag = element.text(["start_tag", "tag_name"])
 
-            if tag.text() != b"summary" or element.text("text") != all_plugins_marker:
+            if tag != b"summary" or element.text("text") != all_plugins_marker:
                 continue
 
-            return outer_element.get("text").text().decode(_ENCODING)
+            if not node.next_sibling:
+                raise RuntimeError(f'Node "{node}" has no next sibling.')
+
+            wrapper = _NodeWrapper(node.next_sibling, lines)
+
+            return wrapper.text("code_fence_content").decode(_ENCODING).strip()
 
         return None
 
@@ -755,6 +768,7 @@ def _get_reader_header(plugins: typing.Iterable[str]) -> str:
 
         <details>
         <summary>{_ALL_PLUGINS_MARKER}</summary>
+
         ```
         {{plugins}}
         ```
@@ -851,6 +865,8 @@ def _get_table_data(plugins: typing.Iterable[str], root: str | None = None) -> _
     else:
         github_headers = {}
 
+    seen: set[str] = set()
+
     for url in plugins:
         if not _is_github(url):
             unknown.append(_UnknownRow(url=url))
@@ -859,6 +875,12 @@ def _get_table_data(plugins: typing.Iterable[str], root: str | None = None) -> _
 
         request = _GitHubRepositoryRequest.from_url(url)
         details = _get_github_repository_details(request, headers=github_headers)
+
+        if details["html_url"] in seen:
+            continue
+
+        seen.add(details["html_url"])
+
         repository = _download_github_files(details, root, headers=github_headers)
         repositories.append((details, repository))
 
