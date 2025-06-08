@@ -146,7 +146,7 @@ Unknown
 | [code-ai.nvim](https://github.com/rakotomandimby/code-ai.nvim) | `<No description found>` | 🌟 4 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2025-06-06 |
 | [code2prompt.nvim](https://github.com/bytehunt/code2prompt.nvim) | ✨ Neovim plugin for mufeedvh/code2prompt  | 🌟 3 | <No AI models were found> | 2024-10-24 |
 | [codeassistant.vim](https://github.com/leocus/codeassistant.vim) | A Vim plugin for a code assistant with local LLMs | 🌟 27 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) | 2024-07-05 |
-| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | ✨ AI-powered coding, seamlessly in Neovim | 🌟 4019 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-06-07 |
+| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | ✨ AI-powered coding, seamlessly in Neovim | 🌟 4021 | [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-06-07 |
 | [codeexplain.nvim](https://github.com/mthbernardes/codeexplain.nvim) | A nvim plugin Powered by GPT4ALL for Real-time Code Explanation and Vulnerabi... | 🌟 90 | <No AI models were found> | 2023-06-20 |
 | [codex.nvim](https://github.com/johnseth97/codex.nvim) | OpenAI Codex plugin for Neovim | 🌟 42 | [#OpenAI](https://openai.com) | 2025-05-08 |
 | [commit-msg-sg.nvim](https://github.com/towry/commit-msg-sg.nvim) | Let AI write the git commit message for you in Neovim. | 🌟 5 | <No AI models were found> | 2023-12-26 |
