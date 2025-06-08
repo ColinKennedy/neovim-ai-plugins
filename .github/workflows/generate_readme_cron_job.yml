@@ -1,10 +1,6 @@
 name: Generate README.md File
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
-    branches:
-    - master
   schedule:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
 
@@ -13,28 +9,6 @@ permissions:
   pull-requests: write
 
 jobs:
-  generate_and_push:
-    name: Generate + Push README.md File
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@master
-
-    - name: Generate README.md File
-      uses: ./.github/actions/generate_readme
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Commit + Push Changes
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: "docs(readme): Auto-generate plugins list"
-        commit_user_name: "github-actions[bot]"
-        commit_user_email: "github-actions[bot]@users.noreply.github.com"
-        commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
-
   create_pull_request:
     name: Create Pull Request
     runs-on: ubuntu-latest
