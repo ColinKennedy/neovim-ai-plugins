@@ -78,6 +78,7 @@ https://github.com/martineausimon/nvim-bard
 https://github.com/micheam/ai-assistant-console
 https://github.com/milanglacier/minuet-ai.nvim
 https://github.com/monkoose/neocodeium
+https://github.com/mozanunal/sllm.nvim
 https://github.com/mthbernardes/codeexplain.nvim
 https://github.com/napisani/context-nvim
 https://github.com/oelmekki/make-my-code-better.vim
@@ -117,5 +118,5 @@ https://www.vim.org/scripts/script.php?script_id=6048
 ```sh
 make generate
 # Or directly
-python generate_readme.md
+python generate_readme.md --directory /tmp/repositories
 ```
