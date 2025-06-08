@@ -15,7 +15,6 @@ on:
 jobs:
   generate_and_push:
     name: Generate + Push README.md File
-    needs: generate
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
 
@@ -33,7 +32,6 @@ jobs:
 
   create_pull_request:
     name: Create Pull Request
-    needs: generate
     runs-on: ubuntu-latest
 
     env:
