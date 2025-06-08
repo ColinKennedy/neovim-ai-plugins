@@ -1,0 +1,40 @@
+name: isort
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  isort:
+    name: isort
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          cache: pip
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m pip install isort
+
+      - name: Run isort
+        run: make check-isort
