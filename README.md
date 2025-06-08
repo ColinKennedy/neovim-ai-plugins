@@ -125,7 +125,7 @@ Unknown
 
 ## Generating This List
 ```sh
-make generate
+GITHUB_TOKEN="your API token here" make generate
 # Or directly
-python generate_readme.md --directory /tmp/repositories
+GITHUB_TOKEN="your API token here" python generate_readme.md --directory /tmp/repositories
 ```
