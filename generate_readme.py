@@ -1143,18 +1143,33 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
         tables.append(f"| {' | '.join(parts)} |")
 
     header = [
-        "| Name | Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |",
-        "| ---- | ----------- | ------------- | -------------- | -------------- | ----------------------- |",
+        "| :ab: Name | :notebook: Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |",
+        "| --------- | ---------------------- | ------------- | -------------- | -------------- | ----------------------- |",
     ]
 
     return "\n".join(itertools.chain(header, sorted(tables)))
 
 
 def _get_license_as_markdown(license: _GitHubRepositoryDetailsLicense) -> str:
-    if not license["url"]:
-        return license["name"]
+    """Convert ``license`` to text that markdown can render.
 
-    return f"[{license['name']}]({license['url']})"
+    Args:
+        license: Some raw GitHub license information. e.g. name, URL, ID, etc.
+
+    Returns:
+        The markdown to render. Usually a name and a link to learn more.
+
+    """
+    name = license["name"]
+    # NOTE: It's redundant for every row to say "Foo License" over and over again so we
+    # might as well remove it.
+    #
+    name = name.replace(" License", "")
+
+    if not license["url"]:
+        return name
+
+    return f"[{name}]({license['url']})"
 
 
 def _validate_environment() -> None:
