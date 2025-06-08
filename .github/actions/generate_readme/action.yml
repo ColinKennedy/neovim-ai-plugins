@@ -1,5 +1,9 @@
 name: "Generate README.md File"
 description: "Rebuilds the README.md From Scratch"
+inputs:
+  github_token:
+    description: "Some Personal Access Token. e.g. ghp_129387u12kj3123k"
+    required: true
 
 runs:
   using: "composite"

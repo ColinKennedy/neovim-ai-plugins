@@ -24,6 +24,8 @@ jobs:
 
     - name: Generate README.md File
       uses: ./.github/actions/generate_readme
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Commit + Push Changes
       uses: stefanzweifel/git-auto-commit-action@v5
@@ -46,6 +48,8 @@ jobs:
 
     - name: Generate README.md File
       uses: ./.github/actions/generate_readme
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Check For File Changes
       id: check_changes
