@@ -36,26 +36,26 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: make generate_readme
 
-  generate_and_push:
-    name: Generate + Push README.md File
-    needs: generate
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
-
-    steps:
-    - name: Commit + Push Changes
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: "docs(readme): Auto-generate plugins list"
-        commit_user_name: "github-actions[bot]"
-        commit_user_email: "github-actions[bot]@users.noreply.github.com"
-        commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+  # TODO: Add this back
+  # generate_and_push:
+  #   name: Generate + Push README.md File
+  #   needs: generate
+  #   runs-on: ubuntu-latest
+  #   if: ${{ github.event_name == 'pull_request' }}
+  #
+  #   steps:
+  #   - name: Commit + Push Changes
+  #     uses: stefanzweifel/git-auto-commit-action@v5
+  #     with:
+  #       commit_message: "docs(readme): Auto-generate plugins list"
+  #       commit_user_name: "github-actions[bot]"
+  #       commit_user_email: "github-actions[bot]@users.noreply.github.com"
+  #       commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
 
   create_pull_request:
     name: Create Pull Request
     needs: generate
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'schedule' }}
 
     env:
       NEW_BRANCH: automatically_update_readme

@@ -1,6 +1,12 @@
 This is a list of Neovim AI plugins.
 This page is auto-generated and was last updated on "2025-06-07"
 
+
+
+
+lines
+
+
 <details>
 <summary>All Plugins</summary>
 ```
