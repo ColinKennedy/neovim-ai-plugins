@@ -33,4 +33,4 @@ jobs:
         run: python -m pip install black
 
       - name: Run black
-        run: tox -e check-black
+        run: make check-black
