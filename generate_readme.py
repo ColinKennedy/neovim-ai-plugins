@@ -52,6 +52,7 @@ import tree_sitter_markdown
 _ALL_PLUGINS_MARKER = "All Plugins"
 _BULLETPOINT_EXPRESSION = re.compile("^\s*-\s*(?P<text>.+)$")
 _CURRENT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
+_DESCRIPTION_LENGTH = 80
 _ENCODING = "utf-8"
 
 _GITHUB_PATTERNS = (
@@ -66,34 +67,41 @@ _MARKDOWN_LANGUAGE = tree_sitter.Language(tree_sitter_markdown.language())
 
 _MARKDOWN_FENCE_MARKER = "```"
 
-# TODO: Add more examples here later
-_MODELS = (
-    ("claude", "Claude"),
-    ("deepseek", "DeepSeek"),
-    ("ollama", "Ollama"),
-    ("openai", "OpenAI"),
-    ("tabnine", "TabNine"),
-)
-
 T = typing.TypeVar("T")
 _LOGGER = logging.getLogger(__name__)
 
 
-class _AiModel:
-    """Some AI model name, e.g. ``"openai"``, to display differently, later."""
+@dataclasses.dataclass(frozen=True, kw_only=True)
+class _Model:
+    """An AI model, used to generate code and other text.
 
-    def __init__(self, name: str) -> None:
-        """Keep track of an AI model name.
+    Attributes:
+        search_term: The string used to "find" the model in a plugin's documentation.
+        name: The real, unabridged name of the model.
+        url: The page online where you can learn more about the model.
 
-        Args:
-            name: e.g. ``"openai"``, ``"deepseek"``, etc.
+    """
 
-        """
-        self._name = name
+    search_term: str | None
+    name: str
+    url: str
+
+    def get_search_term(self) -> str:
+        """Get the string used to "find" the model in a plugin's documentation."""
+        return self.search_term or self.name
 
     def serialize_to_markdown_tag(self) -> str:
-        """Get the "pretty markdown" version of this model name."""
-        return f"`#model:{self._name}`"
+        """Link to where the user can learn more about the model."""
+        return f"[#{self.name}]({self.url})"
+
+
+_MODELS = (
+    _Model(search_term="claude", name="Claude", url="https://claude.ai"),
+    _Model(search_term="deepseek", name="DeepSeek", url="https://chat.deepseek.com"),
+    _Model(search_term="ollama", name="Ollama", url="https://ollama.com"),
+    _Model(search_term="openai", name="OpenAI", url="https://openai.com"),
+    _Model(search_term="tabnine", name="TabNine", url="https://www.tabnine.com"),
+)
 
 
 class _GitHubRepositoryDetailsOwner(typing.TypedDict):
@@ -237,12 +245,12 @@ class _NodeWrapper:
 class _GitHubRow:
     """The data to serialize into GitHub markdown row text, later."""
 
-    description: str
+    description: str | None
     last_commit_date: str
-    models: set[_AiModel]
+    models: set[_Model]
     name: str
     star_count: int
-    status: str
+    status: str | None
     url: str
 
     def get_repository_label(self) -> str:
@@ -366,21 +374,19 @@ def _get_description_summary(details: _GitHubRepositoryDetails) -> str | None:
     if not description:
         return None
 
-    length = 120
-
-    if len(description) <= length:
+    if len(description) <= _DESCRIPTION_LENGTH:
         return description
 
-    return _get_ellided_text(description, length)
+    return _get_ellided_text(description, _DESCRIPTION_LENGTH)
     # TODO: Add support for this later
     # prompt = textwrap.dedent(
     #     f"""\
-    #     Summarize this documentation string to {length} or less: {description}
+    #     Summarize this documentation string to {_DESCRIPTION_LENGTH} or less: {description}
     #     """
     # )
     # result = _ask_ai(prompt)
     #
-    # return _get_ellided_text(result, length)
+    # return _get_ellided_text(result, _DESCRIPTION_LENGTH)
 
 
 def _get_ellided_text(text: str, max: int) -> str:
@@ -494,8 +500,11 @@ def _get_github_table_rows(
     output: dict[str, list[_GitHubRow]] = collections.defaultdict(list)
 
     for details, repository in repositories:
-        description = _get_description_summary(details) or "<No description found>"
-        description = _get_ellided_text(description, 120)
+        description: str | None = None
+
+        if description := _get_description_summary(details):
+            description = _get_ellided_text(description, _DESCRIPTION_LENGTH)
+
         category = _get_primary_category(repository.documentation)
         models = _get_models(repository.documentation)
 
@@ -506,7 +515,7 @@ def _get_github_table_rows(
                 models=models,
                 name=repository.name,
                 star_count=details["stargazers_count"],
-                status=_get_status(repository.documentation) or "<No status found>",
+                status=_get_status(repository.documentation),
                 url=repository.url,
             )
         )
@@ -555,7 +564,7 @@ def _get_last_commit_date(details: _GitHubRepositoryDetails) -> str:
     return data.strftime("%Y-%m-%d")
 
 
-def _get_models(documentation: typing.Iterable[str]) -> set[_AiModel]:
+def _get_models(documentation: typing.Iterable[str]) -> set[_Model]:
     """Parse ``documentation`` and look for supported AI models.
 
     Args:
@@ -565,17 +574,13 @@ def _get_models(documentation: typing.Iterable[str]) -> set[_AiModel]:
         All found, supported models, if any.
 
     """
-
-    output: set[str] = set()
+    output: set[_Model] = set()
 
     for page in documentation:
         lowered = page.lower()
+        output.update(model for model in _MODELS if model.get_search_term() in lowered)
 
-        for alias, real in _MODELS:
-            if alias in lowered:
-                output.add(real)
-
-    return set(_AiModel(name=name) for name in output)
+    return output
 
     # TODO: Consider using AI to find the models later
     # def _validate_results(lines: str) -> set[str]:
@@ -1100,17 +1105,16 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
         )
         parts = [
             row.get_repository_label(),
-            row.description,
+            row.description or "`<No description found>`",
             f"🌟 {row.star_count}",
-            row.status,
             models,
             row.last_commit_date,
         ]
         tables.append(f"| {' | '.join(parts)} |")
 
     header = [
-        "| Name | Description | Star Count | Models | Status | Last Commit Date |",
-        "| ---- | ----------- | ---------- | ------ | ------ | ---------------- |",
+        "| Name | Description | Stars | Models | Updated |",
+        "| ---- | ----------- | ----- | ------ | ------- |",
     ]
 
     return "\n".join(itertools.chain(header, sorted(tables)))
