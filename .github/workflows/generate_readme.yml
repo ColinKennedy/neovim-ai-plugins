@@ -12,6 +12,10 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   generate_and_push:
     name: Generate + Push README.md File
@@ -92,6 +96,9 @@ jobs:
       run: |
         title="Automatically Update README.md"
         body="The README.md is out-of-date. This pull request has the latest changes. Please review and approve."
+        # NOTE: This is the same as ...
+        # default_branch="${{ github.event.repository.default_branch }}"
+        # #
         default_branch="`git remote show origin | grep 'HEAD branch' | awk '{print $3}'`"
 
         curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
