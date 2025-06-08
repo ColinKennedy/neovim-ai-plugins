@@ -4,11 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     branches:
-    - main
-  # TODO: Remove `push` later
-  push:
-    branches:
-      - first_pass
+    - master
   schedule:
     - cron: '0 0 * * *'  # Runs daily at midnight UTC
 
@@ -42,6 +38,7 @@ jobs:
   create_pull_request:
     name: Create Pull Request
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'schedule' }}
 
     env:
       NEW_BRANCH: automatically_update_readme
