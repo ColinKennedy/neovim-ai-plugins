@@ -72,7 +72,7 @@ jobs:
           echo "changes=false" >> $GITHUB_OUTPUT
         fi
 
-    - name: No Changes Deteched - End Early
+    - name: No Changes Detected - End Early
       if: ${{ steps.check_changes.outputs.changes == 'false' }}
       run: |
         echo "We will not make a pull request because no files were changed."
