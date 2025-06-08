@@ -115,8 +115,8 @@ This page is auto-generated and was last updated on "2025-06-08"
 Unknown
 =======
 
-| Name | Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |
-| ---- | ----------- | ------------- | -------------- | -------------- | ----------------------- |
+| :ab: Name | :notebook: Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |
+| --------- | ---------------------- | ------------- | -------------- | -------------- | ----------------------- |
 | [ChatGPT.nvim](https://github.com/jackMort/ChatGPT.nvim) | ChatGPT Neovim Plugin: Effortless Natural Language Generation with OpenAI's C... | :star2: 3965 | [#OpenAI](https://openai.com) | 2024-10-12 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) | Chat with GitHub Copilot in Neovim | :star2: 2938 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) | 2025-05-13 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
 | [CopilotChat.nvim](https://github.com/jellydn/CopilotChat.nvim) | Chat with GitHub Copilot in Neovim | :star2: 98 | <No AI models were found> | 2024-02-05 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
