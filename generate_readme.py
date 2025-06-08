@@ -26,7 +26,6 @@
 
 from __future__ import annotations
 
-from urllib import parse
 import argparse
 import collections
 import dataclasses
@@ -43,12 +42,12 @@ import sys
 import tempfile
 import textwrap
 import typing
+from urllib import parse
 
 import requests
 import tree_sitter
 import tree_sitter_html
 import tree_sitter_markdown
-
 
 _ALL_PLUGINS_MARKER = "All Plugins"
 _BULLETPOINT_EXPRESSION = re.compile("^\s*-\s*(?P<text>.+)$")
@@ -432,7 +431,7 @@ def _get_first_child_of_type(
 
 def _get_github_repository_details(
     repository: _GitHubRepositoryRequest,
-    headers: dict[str, str] | None=None,
+    headers: dict[str, str] | None = None,
 ) -> _GitHubRepositoryDetails:
     """Get all of the main data from some GitHub ``repository``.
 
@@ -459,7 +458,7 @@ def _get_github_repository_details(
 
 def _get_github_repository_file_tree(
     details: _GitHubRepositoryDetails,
-    headers: dict[str, str] | None=None,
+    headers: dict[str, str] | None = None,
 ) -> list[_GitHubTreeResult]:
     """List the file tree using some repository ``details``.
 
@@ -636,6 +635,7 @@ def _get_plugin_urls(lines: bytes) -> list[str] | None:
         All found plugins, if any.
 
     """
+
     # Example:
     #
     # <details>
@@ -678,10 +678,7 @@ def _get_plugin_urls(lines: bytes) -> list[str] | None:
             element = outer_element.get("element")
             tag = element.get(["start_tag", "tag_name"])
 
-            if (
-                tag.text() != b"summary"
-                or element.text("text") != all_plugins_marker
-            ):
+            if tag.text() != b"summary" or element.text("text") != all_plugins_marker:
                 continue
 
             return outer_element.get("text").text().decode(_ENCODING)
@@ -907,7 +904,7 @@ def _download_github_documentation_files(
     details: _GitHubRepositoryDetails,
     base_url: str,
     directory: str,
-    headers: dict[str, str] | None=None,
+    headers: dict[str, str] | None = None,
 ) -> None:
     """Search the repository ``details`` for documentation (README) files.
 
@@ -943,7 +940,7 @@ def _download_github_documentation_files(
 def _download_github_files(
     details: _GitHubRepositoryDetails,
     directory: str,
-    headers: dict[str, str] | None=None,
+    headers: dict[str, str] | None = None,
 ) -> _GitHubRepository:
     """Clone the git ``url`` to ``directory``.
 
@@ -1010,17 +1007,21 @@ def _generate_readme_text(path: str, root: str | None = None) -> str:
         tables = _get_tables_as_lines(table_data)
         middle = "\n\n" + "\n".join(tables)
 
-    return header + middle + textwrap.dedent(
-        """
+    return (
+        header
+        + middle
+        + textwrap.dedent(
+            """
 
 
-        ## Generating This List
-        ```sh
-        GITHUB_TOKEN="your API token here" make generate
-        # Or directly
-        GITHUB_TOKEN="your API token here" python generate_readme.md --directory /tmp/repositories
-        ```
-        """
+            ## Generating This List
+            ```sh
+            GITHUB_TOKEN="your API token here" make generate
+            # Or directly
+            GITHUB_TOKEN="your API token here" python generate_readme.md --directory /tmp/repositories
+            ```
+            """
+        )
     )
 
 
@@ -1063,7 +1064,9 @@ def _parse_arguments(text: typing.Sequence[str]) -> _ParsedArguments:
         The parsed settings.
 
     """
-    parser = argparse.ArgumentParser(description="Options to affect the README.md generator.")
+    parser = argparse.ArgumentParser(
+        description="Options to affect the README.md generator."
+    )
     parser.add_argument(
         "--directory",
         default=tempfile.mkdtemp(suffix="_neovim_ai_plugins"),
@@ -1163,7 +1166,9 @@ def _main(text: typing.Sequence[str]) -> None:
 if __name__ == "__main__":
     _HANDLER = logging.StreamHandler(sys.stdout)
     _HANDLER.setLevel(logging.INFO)
-    _FORMATTER = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    _FORMATTER = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
     _HANDLER.setFormatter(_FORMATTER)
     _LOGGER.addHandler(_HANDLER)
     _LOGGER.setLevel(logging.INFO)
