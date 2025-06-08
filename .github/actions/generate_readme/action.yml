@@ -4,9 +4,6 @@ description: "Rebuilds the README.md From Scratch"
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@master
-
     - name: Setup Python
       uses: actions/setup-python@v5
       with:

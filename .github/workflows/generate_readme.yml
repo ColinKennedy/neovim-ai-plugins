@@ -19,6 +19,9 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
 
     steps:
+    - name: Checkout Repository
+      uses: actions/checkout@master
+
     - name: Generate README.md File
       uses: ./.github/actions/generate_readme
 
@@ -38,6 +41,9 @@ jobs:
       NEW_BRANCH: automatically_update_readme
 
     steps:
+    - name: Checkout Repository
+      uses: actions/checkout@master
+
     - name: Generate README.md File
       uses: ./.github/actions/generate_readme
 
