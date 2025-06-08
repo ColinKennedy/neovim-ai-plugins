@@ -40,7 +40,7 @@ jobs:
     name: Generate README.md File
     needs: generate
     runs-on: ubuntu-latest
-    if: github.event_name == "pull_request"
+    if: ${{ github.event_name == "pull_request" }}
 
     steps:
     - name: Commit + Push Changes
@@ -51,11 +51,11 @@ jobs:
         commit_user_email: "github-actions[bot]@users.noreply.github.com"
         commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
 
-  pull_request:
+  create_pull_request:
     name: Create Pull Request
     needs: generate
     runs-on: ubuntu-latest
-    if: github.event_name == "schedule"
+    if: ${{ github.event_name == "schedule" }}
 
     env:
       NEW_BRANCH: automatically_update_readme
