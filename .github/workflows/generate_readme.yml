@@ -9,9 +9,11 @@ on:
   push:
     branches:
       - first_pass
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight UTC
 
 jobs:
-  test:
+  generate:
     name: Generate README.md File
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -34,6 +36,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: make generate_readme
 
+  generate_and_push:
+    name: Generate README.md File
+    needs: generate
+    runs-on: ubuntu-latest
+    if: github.event_name == "pull_request"
+
+    steps:
     - name: Commit + Push Changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
@@ -41,3 +50,52 @@ jobs:
         commit_user_name: "github-actions[bot]"
         commit_user_email: "github-actions[bot]@users.noreply.github.com"
         commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+
+  pull_request:
+    name: Create Pull Request
+    needs: generate
+    runs-on: ubuntu-latest
+    if: github.event_name == "schedule"
+
+    env:
+      NEW_BRANCH: automatically_update_readme
+
+    steps:
+    - name: Check For File Changes
+      id: check_changes
+      run: |
+        if [[ -n "$(git status --porcelain)" ]]; then
+          echo "File changes detected."
+          echo "changes=true" >> $GITHUB_OUTPUT
+        else
+          echo "No file changes detected."
+          echo "changes=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: No Changes Deteched - End Early
+      if: steps.check_changes.outputs.changes == "false"
+      run: |
+        echo "We will not make a pull request because no files were changed."
+
+    - name: Create A PR Branch
+      if: steps.check_changes.outputs.changes == "true"
+      run: |
+        # Create / Recreate the branch
+        git branch -D $NEW_BRANCH
+        git checkout -b $NEW_BRANCH
+        git add -u .
+        git commit -m "docs(readme): Auto-generate plugins list"
+        git push --force origin $NEW_BRANCH
+
+    - name: Create Pull Request
+      if: steps.check_changes.outputs.changes == "true"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        title="Automatically Update README.md"
+        body="The README.md is out-of-date. This pull request has the latest changes. Please review and approve."
+        default_branch="`git remote show origin | grep 'HEAD branch' | awk '{print $3}'`"
+
+        curl -X POST -H "Authorization: token $GITHUB_TOKEN" \
+          -d '{"title":"'"$title"'","body":"'"$body"'","head":"'"$NEW_BRANCH"'","base":"$default_branch"}' \
+          https://api.github.com/repos/${{ github.repository }}/pulls
