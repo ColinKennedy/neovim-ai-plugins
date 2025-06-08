@@ -12,7 +12,6 @@ jobs:
   create_pull_request:
     name: Create Pull Request
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'schedule' }}
 
     env:
       NEW_BRANCH: automatically_update_readme
