@@ -88,6 +88,7 @@ This page is auto-generated and was last updated on "2025-06-08"
 - https://github.com/paradoxical-dev/neollama
 - https://github.com/pasky/claude.vim
 - https://github.com/piersolenski/wtf.nvim
+- https://github.com/psaia/prompt-ai.vim
 - https://github.com/pwnwriter/code2prompt.nvim
 - https://github.com/rakotomandimby/code-ai.nvim
 - https://github.com/rakotomandimby/deepseek-complete
