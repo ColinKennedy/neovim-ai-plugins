@@ -24,6 +24,7 @@ This page is auto-generated and was last updated on "2025-06-12"
 - https://github.com/GeorgesAlkhouri/nvim-aider
 - https://github.com/HPRIOR/telescope-gpt
 - https://github.com/IwasakiYuuki/ai-assistant.nvim
+- https://github.com/Jacob411/Ollama-Copilot
 - https://github.com/Kurama622/llm.nvim
 - https://github.com/Lommix/ollamachad.nvim
 - https://github.com/RayenMnif/tgpt.nvim
