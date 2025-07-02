@@ -38,9 +38,11 @@ This page is auto-generated and was last updated on "2025-07-01"
 - https://github.com/Xuyuanp/nes.nvim
 - https://github.com/aduros/ai.vim
 - https://github.com/agusnt/askGemini.nvim
+- https://github.com/augmentcode/augment.vim
 - https://github.com/aweis89/aider.nvim
 - https://github.com/azorng/goose.nvim
 - https://github.com/bakks/butterfish.nvim
+- https://github.com/banjo/contextfiles.nvim
 - https://github.com/codota/tabnine-nvim
 - https://github.com/copilotlsp-nvim/copilot-lsp
 - https://github.com/deifyed/naVi
