@@ -57,6 +57,7 @@ This page is auto-generated and was last updated on "2025-07-04"
 - https://github.com/github/copilot.vim
 - https://github.com/gsuuon/llm.nvim
 - https://github.com/gsuuon/model.nvim
+- https://github.com/heilgar/nochat.nvim
 - https://github.com/huynle/ogpt.nvim
 - https://github.com/iovdin/tune.nvim
 - https://github.com/jackMort/ChatGPT.nvim
