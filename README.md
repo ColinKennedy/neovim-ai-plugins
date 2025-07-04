@@ -27,6 +27,7 @@ This page is auto-generated and was last updated on "2025-07-09"
 - https://github.com/Jacob411/Ollama-Copilot
 - https://github.com/Kurama622/llm.nvim
 - https://github.com/Lommix/ollamachad.nvim
+- https://github.com/NickvanDyke/opencode.nvim
 - https://github.com/RayenMnif/tgpt.nvim
 - https://github.com/Robitx/gp.nvim
 - https://github.com/S1M0N38/chatml.nvim
@@ -39,6 +40,7 @@ This page is auto-generated and was last updated on "2025-07-09"
 - https://github.com/aduros/ai.vim
 - https://github.com/agusnt/askGemini.nvim
 - https://github.com/augmentcode/augment.vim
+- https://github.com/avifenesh/claucode.nvim
 - https://github.com/aweis89/aider.nvim
 - https://github.com/azorng/goose.nvim
 - https://github.com/bakks/butterfish.nvim
@@ -102,6 +104,7 @@ This page is auto-generated and was last updated on "2025-07-09"
 - https://github.com/skywind3000/vim-gpt-commit
 - https://github.com/solyarisoftware/prompter.vim
 - https://github.com/sourcegraph/sg.nvim
+- https://github.com/sudo-tee/opencode.nvim
 - https://github.com/supermaven-inc/supermaven-nvim
 - https://github.com/svermeulen/text-to-colorscheme
 - https://github.com/tdfacer/explain-it.nvim
