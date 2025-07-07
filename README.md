@@ -85,6 +85,7 @@ This page is auto-generated and was last updated on "2025-07-05"
 - https://github.com/monkoose/neocodeium
 - https://github.com/mozanunal/sllm.nvim
 - https://github.com/mthbernardes/codeexplain.nvim
+- https://github.com/mzguntalan/vibe-level.nvim
 - https://github.com/napisani/context-nvim
 - https://github.com/oelmekki/make-my-code-better.vim
 - https://github.com/oflisback/describe-command.nvim
