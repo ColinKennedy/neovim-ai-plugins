@@ -98,6 +98,7 @@ This page is auto-generated and was last updated on "2025-07-07"
 - https://github.com/rakotomandimby/code-ai.nvim
 - https://github.com/rakotomandimby/deepseek-complete
 - https://github.com/reachingforthejack/cursortab.nvim
+- https://github.com/samir-roy/code-bridge.nvim
 - https://github.com/skywind3000/vim-gpt-commit
 - https://github.com/solyarisoftware/prompter.vim
 - https://github.com/sourcegraph/sg.nvim
