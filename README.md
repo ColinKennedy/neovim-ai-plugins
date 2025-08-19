@@ -41,7 +41,7 @@ This page is auto-generated and was last updated on "2025-08-11"
 - https://github.com/agusnt/askGemini.nvim
 - https://github.com/augmentcode/augment.vim
 - https://github.com/avifenesh/claucode.nvim
-- https://github.com/aweis89/aider.nvim
+- https://github.com/aweis89/ai-terminals.nvim
 - https://github.com/azorng/goose.nvim
 - https://github.com/bakks/butterfish.nvim
 - https://github.com/banjo/contextfiles.nvim
@@ -140,7 +140,7 @@ Plugins
 | [ai.nvim](https://github.com/gera2ld/ai.nvim) | A Neovim plugin powered by AI. | :star2: 41 | [#OpenAI](https://openai.com) | 2024-07-17 | `<No license found>` |
 | [ai.nvim](https://github.com/maheshbansod/ai.nvim) | AI stuff in neovim | :star2: 3 | <No AI models were found> | 2025-02-17 | `<No license found>` |
 | [ai.vim](https://github.com/aduros/ai.vim) | Generate and edit text in Neovim using OpenAI and GPT. | :star2: 297 | [#OpenAI](https://openai.com) | 2023-12-16 | [ISC](https://api.github.com/licenses/isc) |
-| [aider.nvim](https://github.com/aweis89/aider.nvim) | `<No description found>` | :star2: 46 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#OpenAI](https://openai.com) | 2025-04-12 | `<No license found>` |
+| [ai-terminals.nvim](https://github.com/aweis89/ai-terminals.nvim) | Integrate any AI REPL (Claude Code/Codex/Gemini CLI/Cursor CLI) with Neovim | :star2: 37 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#OpenAI](https://openai.com) | 2025-04-12 | [MIT](https://api.github.com/licenses/mit) |
 | [aider.nvim](https://github.com/joshuavial/aider.nvim) | `<No description found>` | :star2: 535 | <No AI models were found> | 2025-04-17 | [MIT](https://api.github.com/licenses/mit) |
 | [askGemini.nvim](https://github.com/agusnt/askGemini.nvim) | A Neovim Plugin to ask things to Gemini | :star2: 1 | <No AI models were found> | 2025-04-04 | [MIT](https://api.github.com/licenses/mit) |
 | [askgpt.vim](https://github.com/macrat/askgpt.vim) | A plugin for Vim that incorporates ChatGPT to allow you to ask questions abou... | :star2: 3 | [#OpenAI](https://openai.com) | 2023-04-22 | [MIT](https://api.github.com/licenses/mit) |
