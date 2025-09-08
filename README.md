@@ -28,6 +28,7 @@ This page is auto-generated and was last updated on "2025-08-31"
 - https://github.com/Kurama622/llm.nvim
 - https://github.com/Lommix/ollamachad.nvim
 - https://github.com/NickvanDyke/opencode.nvim
+- https://github.com/Piotr1215/pairup.nvim
 - https://github.com/RayenMnif/tgpt.nvim
 - https://github.com/Robitx/gp.nvim
 - https://github.com/S1M0N38/chatml.nvim
