@@ -54,6 +54,7 @@ This page is auto-generated and was last updated on "2025-09-29"
 - https://github.com/dustinblackman/oatmeal.nvim
 - https://github.com/efugier/smartcat
 - https://github.com/fang2hou/blink-copilot
+- https://github.com/folke/sidekick.nvim
 - https://github.com/frankroeder/parrot.nvim
 - https://github.com/gera2ld/ai.nvim
 - https://github.com/ggml-org/llama.vim
