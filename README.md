@@ -60,6 +60,7 @@ This page is auto-generated and was last updated on "2025-09-08"
 - https://github.com/github/copilot.vim
 - https://github.com/gsuuon/llm.nvim
 - https://github.com/gsuuon/model.nvim
+- https://github.com/gutsavgupta/nvim-gemini-companion
 - https://github.com/heilgar/nochat.nvim
 - https://github.com/huynle/ogpt.nvim
 - https://github.com/iovdin/tune.nvim
@@ -113,6 +114,7 @@ This page is auto-generated and was last updated on "2025-09-08"
 - https://github.com/tom-doerr/vim_codex
 - https://github.com/towry/commit-msg-sg.nvim
 - https://github.com/tzachar/cmp-ai
+- https://github.com/wtfox/claude-chat.nvim
 - https://github.com/yacineMTB/dingllm.nvim
 - https://github.com/yetone/avante.nvim
 - https://github.com/you-n-g/simplegpt.nvim
