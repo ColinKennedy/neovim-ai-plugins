@@ -6,6 +6,7 @@ This page is auto-generated and was last updated on "2025-10-16"
 
 ```
 - https://github.com/0xrusowsky/nvim-ctx-ingest
+- https://github.com/3ZsForInsomnia/token-count.nvim
 - https://github.com/3v0k4/exit.nvim
 - https://github.com/Aaronik/GPTModels.nvim
 - https://github.com/AdiY00/copy-tree.nvim
