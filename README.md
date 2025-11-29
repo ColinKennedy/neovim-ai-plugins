@@ -48,6 +48,7 @@ This page is auto-generated and was last updated on "2025-11-29"
 - https://github.com/azorng/goose.nvim
 - https://github.com/bakks/butterfish.nvim
 - https://github.com/banjo/contextfiles.nvim
+- https://github.com/carlos-algms/agentic.nvim
 - https://github.com/codota/tabnine-nvim
 - https://github.com/copilotlsp-nvim/copilot-lsp
 - https://github.com/deifyed/naVi
