@@ -41,6 +41,7 @@ This page is auto-generated and was last updated on "2025-10-17"
 - https://github.com/Xuyuanp/nes.nvim
 - https://github.com/aduros/ai.vim
 - https://github.com/agusnt/askGemini.nvim
+- https://github.com/ahkohd/context.nvim
 - https://github.com/augmentcode/augment.vim
 - https://github.com/avifenesh/claucode.nvim
 - https://github.com/aweis89/ai-terminals.nvim
