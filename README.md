@@ -44,6 +44,7 @@ This page is auto-generated and was last updated on "2026-08-02"
 - https://github.com/TheNoeTrevino/haunt.nvim
 - https://github.com/ThePrimeagen/99
 - https://github.com/WhiteBlackGoose/gpt4all.nvim
+- https://github.com/WorldOccupier/nvim-agent-comments
 - https://github.com/Xuyuanp/nes.nvim
 - https://github.com/aduros/ai.vim
 - https://github.com/afewyards/codereview.nvim
