@@ -1102,35 +1102,6 @@ def _generate_readme_text(
     )
 
 
-def _git(command: str, directory: str | None = None) -> str:
-    """Run the ``git`` command. e.g. ``"clone <some URL>"``.
-
-    Args:
-        command: The git command to run (don't include the ``git`` executable prefix).
-        directory: The directory to run the command from, if any.
-
-    Raises:
-        RuntimeError: If the git commant fails.
-
-    Returns:
-        The raw terminal output of the command.
-
-    """
-    process = subprocess.Popen(
-        ["git", *shlex.split(command)],
-        cwd=directory,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        universal_newlines=True,
-    )
-    stdout, stderr = process.communicate()
-
-    if process.returncode:
-        raise RuntimeError(f"Got error during git call:\n{stderr}")
-
-    return stdout
-
-
 def _parse_arguments(text: typing.Sequence[str]) -> _ParsedArguments:
     """Convert raw user CLI text into actual Python objects.
 

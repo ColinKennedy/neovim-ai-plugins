@@ -143,7 +143,7 @@ Plugins
 | [ChatGPT.nvim](https://github.com/jackMort/ChatGPT.nvim) | ChatGPT Neovim Plugin: Effortless Natural Language Generation with OpenAI's C... | :star2: 4007 | [#OpenAI](https://openai.com) | 2024-10-12 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) | Fully featured & enhanced replacement for copilot.vim complete with API for i... | :star2: 3904 | <No AI models were found> | 2025-12-20 | [MIT](https://api.github.com/licenses/mit) |
 | [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) | Chat with GitHub Copilot in Neovim | :star2: 3485 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) | 2025-12-22 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
-| [sidekick.nvim](https://github.com/folke/sidekick.nvim) | Your Neovim AI sidekick | :star2: 2035 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2025-10-31 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [sidekick.nvim](https://github.com/folke/sidekick.nvim) | Your Neovim AI sidekick | :star2: 2036 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2025-10-31 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [llama.vim](https://github.com/ggml-org/llama.vim) | Vim plugin for LLM-assisted code/text completion | :star2: 1785 | <No AI models were found> | 2025-10-28 | [MIT](https://api.github.com/licenses/mit) |
 | [gen.nvim](https://github.com/David-Kunz/gen.nvim) | Neovim plugin to generate text using LLMs with customizable prompts | :star2: 1503 | [#Ollama](https://ollama.com) | 2025-05-03 | [The Unlicense](https://api.github.com/licenses/unlicense) |
 | [supermaven-nvim](https://github.com/supermaven-inc/supermaven-nvim) | The official Neovim plugin for Supermaven | :star2: 1355 | <No AI models were found> | 2024-10-07 | [MIT](https://api.github.com/licenses/mit) |
@@ -264,6 +264,6 @@ GITHUB_TOKEN="your API token here" make generate_readme
 # Or directly
 GITHUB_TOKEN="your API token here" python generate_readme.py --directory /tmp/repositories
 
-# Sort alphabetically by name instead of by stars (default)
+# Sort alphabetically by-name instead of by-stars (which is the default)
 GITHUB_TOKEN="your API token here" python generate_readme.py --sort name
 ```
