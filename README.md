@@ -1,5 +1,5 @@
 This is a list of Neovim AI plugins.
-This page is auto-generated and was last updated on "2025-12-26"
+This page is auto-generated and was last updated on "2025-12-27"
 
 <details>
 <summary>All Plugins</summary>
@@ -136,7 +136,7 @@ Plugins
 
 | :ab: Name | :notebook: Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |
 | --------- | ---------------------- | ------------- | -------------- | -------------- | ----------------------- |
-| [avante.nvim](https://github.com/yetone/avante.nvim) | Use your Neovim like using Cursor AI IDE! | :star2: 16904 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-12-26 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [avante.nvim](https://github.com/yetone/avante.nvim) | Use your Neovim like using Cursor AI IDE! | :star2: 16905 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-12-26 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [copilot.vim](https://github.com/github/copilot.vim) | Neovim plugin for GitHub Copilot | :star2: 11151 | <No AI models were found> | 2025-12-24 | Other |
 | [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | ✨ AI Coding, Vim Style | :star2: 5833 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-12-26 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [windsurf.vim](https://github.com/Exafunction/windsurf.vim) | Free, ultrafast Copilot alternative for Vim and Neovim | :star2: 5103 | [#Windsurf](https://windsurf.com) | 2025-07-30 | [MIT](https://api.github.com/licenses/mit) |
@@ -152,7 +152,7 @@ Plugins
 | [opencode.nvim](https://github.com/NickvanDyke/opencode.nvim) | Integrate the opencode AI assistant with Neovim — streamline editor-aware res... | :star2: 1246 | <No AI models were found> | 2025-12-23 | [MIT](https://api.github.com/licenses/mit) |
 | [windsurf.nvim](https://github.com/Exafunction/windsurf.nvim) | A native neovim extension for Codeium | :star2: 1231 | [#Windsurf](https://windsurf.com) | 2025-04-30 | [MIT](https://api.github.com/licenses/mit) |
 | [vim-ai](https://github.com/madox2/vim-ai) | AI-powered code assistant for Vim. OpenAI and ChatGPT plugin for Vim and Neovim. | :star2: 1099 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2025-11-03 | [MIT](https://api.github.com/licenses/mit) |
-| [minuet-ai.nvim](https://github.com/milanglacier/minuet-ai.nvim) | 💃 Dance with Intelligence in Your Code. Minuet offers code completion as-you-... | :star2: 914 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) [#Windsurf](https://windsurf.com) | 2025-12-17 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
+| [minuet-ai.nvim](https://github.com/milanglacier/minuet-ai.nvim) | 💃 Dance with Intelligence in Your Code. Minuet offers code completion as-you-... | :star2: 915 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) [#Windsurf](https://windsurf.com) | 2025-12-17 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
 | [dingllm.nvim](https://github.com/yacineMTB/dingllm.nvim) | Yacine's LLM nvim scripts | :star2: 868 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2024-10-24 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [sg.nvim](https://github.com/sourcegraph/sg.nvim) | Experimental Sourcegraph + Cody plugin for Neovim | :star2: 786 | <No AI models were found> | 2025-01-21 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [parrot.nvim](https://github.com/frankroeder/parrot.nvim) | parrot.nvim 🦜 - the plugin that brings stochastic parrots to Neovim. | :star2: 762 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-11-17 | Other |
@@ -163,8 +163,8 @@ Plugins
 | [aider.nvim](https://github.com/joshuavial/aider.nvim) | `<No description found>` | :star2: 552 | <No AI models were found> | 2025-04-17 | [MIT](https://api.github.com/licenses/mit) |
 | [smartcat](https://github.com/efugier/smartcat) | Putting a brain behind `cat`🐈‍⬛ Integrating language models in the Unix comma... | :star2: 542 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-02-23 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [neural](https://github.com/dense-analysis/neural) | AI Vim/Neovim code generation plugin (OpenAI, ChatGPT, and more) | :star2: 509 | [#OpenAI](https://openai.com) | 2025-07-22 | [MIT](https://api.github.com/licenses/mit) |
+| [claude.vim](https://github.com/pasky/claude.vim) | Claude vim plugin for AI pair programming - a hacker's gateway to LLMs | :star2: 428 | [#Claude](https://claude.ai) [#Windsurf](https://windsurf.com) | 2025-05-22 | [MIT](https://api.github.com/licenses/mit) |
 | [llm.nvim](https://github.com/Kurama622/llm.nvim) | A large language model (LLM) plugin for Neovim, provides commands to interact... | :star2: 427 | <No AI models were found> | 2025-12-22 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
-| [claude.vim](https://github.com/pasky/claude.vim) | Claude vim plugin for AI pair programming - a hacker's gateway to LLMs | :star2: 427 | [#Claude](https://claude.ai) [#Windsurf](https://windsurf.com) | 2025-05-22 | [MIT](https://api.github.com/licenses/mit) |
 | [copilot-lsp](https://github.com/copilotlsp-nvim/copilot-lsp) | Copilot LSP: A lightweight and extensible Neovim plugin for integrating GitHu... | :star2: 419 | <No AI models were found> | 2025-12-17 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [magenta.nvim](https://github.com/dlants/magenta.nvim) | A tool-use-focused LLM plugin for neovim. | :star2: 418 | <No AI models were found> | 2025-12-17 | [MIT](https://api.github.com/licenses/mit) |
 | [neocodeium](https://github.com/monkoose/neocodeium) | free AI completion plugin for neovim | :star2: 413 | [#Windsurf](https://windsurf.com) | 2025-10-15 | [MIT](https://api.github.com/licenses/mit) |
