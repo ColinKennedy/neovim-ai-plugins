@@ -47,6 +47,13 @@ T = typing.TypeVar("T")
 _LOGGER = logging.getLogger(__name__)
 
 
+class _SortMethod(enum.StrEnum):
+    """The switches used to determine how the plugin table will be sorted."""
+
+    name = "name"
+    stars = "stars"
+
+
 @dataclasses.dataclass(frozen=True, kw_only=True)
 class _Model:
     """An AI model, used to generate code and other text.
@@ -162,10 +169,12 @@ class _ParsedArguments:
 
     Attributes:
         directory: The folder where any cloned / download artifacts will go under.
+        sort: The sorting method for repositories ('stars' or 'name').
 
     """
 
     directory: str
+    sort: _SortMethod
 
 
 class _Category(str, enum.Enum):
@@ -822,24 +831,44 @@ def _get_status(documentation: typing.Iterable[str]) -> str | None:
     # return _Status.none
 
 
-def _get_tables_as_lines(tables: _Tables) -> list[str]:
+def _get_tables_as_lines(
+    tables: _Tables, sort: _SortMethod = _SortMethod.stars
+) -> list[str]:
     """Convert ``tables`` into GitHub table text.
 
     Args:
         tables: All serialized repository data.
+        sort: The sorting method ('stars' or 'name').
 
     Raises:
-        RuntimeError: If any of ``tables`` cannot be serialized.
+        RuntimeError: If any of ``tables`` cannot be serialized or `sort` is invalid.
 
     Returns:
         Each serialized table.
 
     """
+
+    def _sort_by_name_ascending(row: _GitHubRow) -> str:
+        return row.name.lower()
+
+    def _sort_by_star_descending(row: _GitHubRow) -> int:
+        return -1 * row.star_count
+
+    sorter: typing.Callable[[_GitHubRow], typing.Any]
+
+    if sort == _SortMethod.stars:
+        sorter = _sort_by_star_descending
+    elif sort == _SortMethod.name:
+        sorter = _sort_by_name_ascending
+    else:
+        raise RuntimeError(f'Sort "{sort}" is invalid. It has to be "stars" or "name".')
+
     output: list[str] = []
 
     for name, rows in sorted(tables.github.items()):
         header = f"{name.capitalize()}\n{'=' * len(name)}"
-        table = _serialize_github_table(rows)
+        sorted_rows = sorted(rows, key=sorter)
+        table = _serialize_github_table(sorted_rows)
 
         if not table:
             raise RuntimeError(f'Table "{name}" could not be serialized.')
@@ -1015,12 +1044,17 @@ def _download_github_files(
     )
 
 
-def _generate_readme_text(path: str, root: str | None = None) -> str:
+def _generate_readme_text(
+    path: str,
+    root: str | None = None,
+    sort: _SortMethod = _SortMethod.stars,
+) -> str:
     """Read ``path`` and regenerate its contents.
 
     Args:
         path: Some ``"/path/to/README.md"`` to make again.
         root: The directory on-disk to clone repositories to, if any.
+        sort: The sorting method ('stars' or 'name').
 
     Raises:
         RuntimeError: If no ``plugins`` to generate were found.
@@ -1043,7 +1077,7 @@ def _generate_readme_text(path: str, root: str | None = None) -> str:
     if table_data.is_empty():
         middle = ""
     else:
-        tables = _get_tables_as_lines(table_data)
+        tables = _get_tables_as_lines(table_data, sort=sort)
         middle = "\n\n" + "\n".join(tables)
 
     return (
@@ -1055,42 +1089,17 @@ def _generate_readme_text(path: str, root: str | None = None) -> str:
 
             ## Generating This List
             ```sh
-            GITHUB_TOKEN="your API token here" make generate
+            GITHUB_TOKEN="your API token here" make generate_readme
+
             # Or directly
-            GITHUB_TOKEN="your API token here" python generate_readme.md --directory /tmp/repositories
+            GITHUB_TOKEN="your API token here" python generate_readme.py --directory /tmp/repositories
+
+            # Sort alphabetically by-name instead of by-stars (which is the default)
+            GITHUB_TOKEN="your API token here" python generate_readme.py --sort name
             ```
             """
         )
     )
-
-
-def _git(command: str, directory: str | None = None) -> str:
-    """Run the ``git`` command. e.g. ``"clone <some URL>"``.
-
-    Args:
-        command: The git command to run (don't include the ``git`` executable prefix).
-        directory: The directory to run the command from, if any.
-
-    Raises:
-        RuntimeError: If the git commant fails.
-
-    Returns:
-        The raw terminal output of the command.
-
-    """
-    process = subprocess.Popen(
-        ["git", *shlex.split(command)],
-        cwd=directory,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        universal_newlines=True,
-    )
-    stdout, stderr = process.communicate()
-
-    if process.returncode:
-        raise RuntimeError(f"Got error during git call:\n{stderr}")
-
-    return stdout
 
 
 def _parse_arguments(text: typing.Sequence[str]) -> _ParsedArguments:
@@ -1111,10 +1120,18 @@ def _parse_arguments(text: typing.Sequence[str]) -> _ParsedArguments:
         default=tempfile.mkdtemp(suffix="_neovim_ai_plugins"),
         help="The path on-disk to clone temporary github repositories into.",
     )
+    parser.add_argument(
+        "--sort",
+        default=_SortMethod.stars,
+        choices=sorted(_SortMethod),
+        help="Sort repositories by star count (default) or alphabetically by name.",
+    )
 
     namespace = parser.parse_args(text)
 
-    return _ParsedArguments(directory=namespace.directory)
+    return _ParsedArguments(
+        directory=namespace.directory, sort=_SortMethod(namespace.sort)
+    )
 
 
 def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
@@ -1158,7 +1175,7 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
         "| --------- | ---------------------- | ------------- | -------------- | -------------- | ----------------------- |",
     ]
 
-    return "\n".join(itertools.chain(header, sorted(tables)))
+    return "\n".join(itertools.chain(header, tables))
 
 
 def _get_license_as_markdown(license: _GitHubRepositoryDetailsLicense) -> str:
@@ -1224,7 +1241,7 @@ def _main(text: typing.Sequence[str]) -> None:
     namespace = _parse_arguments(text)
 
     path = _get_readme_path()
-    data = _generate_readme_text(path, root=namespace.directory)
+    data = _generate_readme_text(path, root=namespace.directory, sort=namespace.sort)
 
     _LOGGER.info("Generated README.md data\n\n````%s````", data)
 
