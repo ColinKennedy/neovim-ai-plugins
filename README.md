@@ -29,6 +29,7 @@ This page is auto-generated and was last updated on "2025-12-27"
 - https://github.com/Kurama622/llm.nvim
 - https://github.com/Lommix/ollamachad.nvim
 - https://github.com/NickvanDyke/opencode.nvim
+- https://github.com/PhantomYdn/fabric-ai.nvim
 - https://github.com/Piotr1215/pairup.nvim
 - https://github.com/RayenMnif/tgpt.nvim
 - https://github.com/Robitx/gp.nvim
