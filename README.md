@@ -86,6 +86,7 @@ This page is auto-generated and was last updated on "2026-01-26"
 - https://github.com/kiteco/vim-plugin
 - https://github.com/lambdalisue/vim-butler
 - https://github.com/leocus/codeassistant.vim
+- https://github.com/leonardcser/cursortab.nvim
 - https://github.com/macrat/askgpt.vim
 - https://github.com/madox2/vim-ai
 - https://github.com/magicalne/nvim.ai

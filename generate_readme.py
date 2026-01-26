@@ -782,8 +782,7 @@ def _get_reader_header(plugins: typing.Iterable[str]) -> str:
     """
     now = datetime.datetime.now()
 
-    text = textwrap.dedent(
-        f"""\
+    text = textwrap.dedent(f"""\
         This is a list of Neovim AI plugins.
         This page is auto-generated and was last updated on "{now.strftime('%Y-%m-%d')}"
 
@@ -794,8 +793,7 @@ def _get_reader_header(plugins: typing.Iterable[str]) -> str:
         {{plugins}}
         ```
         </details>
-        """
-    )
+        """)
 
     return text.format(plugins="\n".join(sorted(f"- {name}" for name in plugins)))
 
@@ -1080,11 +1078,7 @@ def _generate_readme_text(
         tables = _get_tables_as_lines(table_data, sort=sort)
         middle = "\n\n" + "\n".join(tables)
 
-    return (
-        header
-        + middle
-        + textwrap.dedent(
-            """
+    return header + middle + textwrap.dedent("""
 
 
             ## Generating This List
@@ -1097,9 +1091,7 @@ def _generate_readme_text(
             # Sort alphabetically by-name instead of by-stars (which is the default)
             GITHUB_TOKEN="your API token here" python generate_readme.py --sort name
             ```
-            """
-        )
-    )
+            """)
 
 
 def _parse_arguments(text: typing.Sequence[str]) -> _ParsedArguments:
