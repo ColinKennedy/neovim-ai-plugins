@@ -38,6 +38,7 @@ This page is auto-generated and was last updated on "2026-01-14"
 - https://github.com/S1M0N38/dante.nvim
 - https://github.com/ShoofLLC/vim-openai
 - https://github.com/TamaMcGlinn/vim-termhelp
+- https://github.com/TheNoeTrevino/haunt.nvim
 - https://github.com/WhiteBlackGoose/gpt4all.nvim
 - https://github.com/Xuyuanp/nes.nvim
 - https://github.com/aduros/ai.vim
