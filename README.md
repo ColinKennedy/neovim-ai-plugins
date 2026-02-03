@@ -11,6 +11,7 @@ This page is auto-generated and was last updated on "2026-01-26"
 - https://github.com/Aaronik/GPTModels.nvim
 - https://github.com/AdiY00/copy-tree.nvim
 - https://github.com/AdrianMosnegutu/docscribe.nvim
+- https://github.com/BlinkResearchLabs/blink-edit.nvim
 - https://github.com/Bryley/neoai.nvim
 - https://github.com/CamdenClark/flyboy
 - https://github.com/CoderCookE/vim-chatgpt
