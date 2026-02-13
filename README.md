@@ -131,6 +131,7 @@ This page is auto-generated and was last updated on "2026-02-03"
 - https://github.com/yuki-yano/ai-review.vim
 - https://github.com/zbirenbaum/copilot-cmp
 - https://github.com/zbirenbaum/copilot.lua
+- https://github.com/zion-off/mole.nvim
 ```
 </details>
 
