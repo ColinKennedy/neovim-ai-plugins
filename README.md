@@ -43,6 +43,7 @@ This page is auto-generated and was last updated on "2026-02-13"
 - https://github.com/WhiteBlackGoose/gpt4all.nvim
 - https://github.com/Xuyuanp/nes.nvim
 - https://github.com/aduros/ai.vim
+- https://github.com/afewyards/codereview.nvim
 - https://github.com/agusnt/askGemini.nvim
 - https://github.com/ahkohd/context.nvim
 - https://github.com/augmentcode/augment.vim
