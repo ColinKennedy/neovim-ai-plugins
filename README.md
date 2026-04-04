@@ -93,6 +93,7 @@ This page is auto-generated and was last updated on "2026-02-25"
 - https://github.com/madox2/vim-ai
 - https://github.com/magicalne/nvim.ai
 - https://github.com/maheshbansod/ai.nvim
+- https://github.com/makefunstuff/cogcog
 - https://github.com/marco-souza/ollero.nvim
 - https://github.com/martineausimon/nvim-bard
 - https://github.com/micheam/ai-assistant-console
