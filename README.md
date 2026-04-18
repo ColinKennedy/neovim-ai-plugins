@@ -14,6 +14,7 @@ This page is auto-generated and was last updated on "2026-04-12"
 - https://github.com/BlinkResearchLabs/blink-edit.nvim
 - https://github.com/Bryley/neoai.nvim
 - https://github.com/CamdenClark/flyboy
+- https://github.com/Cannon07/code-preview.nvim
 - https://github.com/CoderCookE/vim-chatgpt
 - https://github.com/CopilotC-Nvim/CopilotChat.nvim
 - https://github.com/Dan7h3x/chatter.nvim
