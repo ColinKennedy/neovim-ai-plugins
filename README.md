@@ -90,6 +90,7 @@ This page is auto-generated and was last updated on "2026-04-18"
 - https://github.com/lambdalisue/vim-butler
 - https://github.com/leocus/codeassistant.vim
 - https://github.com/leonardcser/cursortab.nvim
+- https://github.com/louishuyng/snipai
 - https://github.com/macrat/askgpt.vim
 - https://github.com/madox2/vim-ai
 - https://github.com/magicalne/nvim.ai
