@@ -51,6 +51,7 @@ This page is auto-generated and was last updated on "2026-04-21"
 - https://github.com/avifenesh/claucode.nvim
 - https://github.com/aweis89/ai-terminals.nvim
 - https://github.com/azorng/goose.nvim
+- https://github.com/azorng/vision.nvim
 - https://github.com/bakks/butterfish.nvim
 - https://github.com/banjo/contextfiles.nvim
 - https://github.com/carlos-algms/agentic.nvim
