@@ -65,6 +65,7 @@ This page is auto-generated and was last updated on "2026-05-24"
 - https://github.com/dlants/magenta.nvim
 - https://github.com/dustinblackman/oatmeal.nvim
 - https://github.com/efugier/smartcat
+- https://github.com/erkamkavak/pi.nvim
 - https://github.com/fang2hou/blink-copilot
 - https://github.com/folke/sidekick.nvim
 - https://github.com/frankroeder/parrot.nvim
@@ -151,17 +152,17 @@ Plugins
 
 | :ab: Name | :notebook: Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |
 | --------- | ---------------------- | ------------- | -------------- | -------------- | ----------------------- |
-| [avante.nvim](https://github.com/yetone/avante.nvim) | Use your Neovim like using Cursor AI IDE! | :star2: 17918 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-05-23 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
-| [copilot.vim](https://github.com/github/copilot.vim) | Neovim plugin for GitHub Copilot | :star2: 11608 | <No AI models were found> | 2026-01-09 | Other |
-| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | ✨ AI Coding, Vim Style | :star2: 6609 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-05-16 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
-| [windsurf.vim](https://github.com/Exafunction/windsurf.vim) | Free, ultrafast Copilot alternative for Vim and Neovim | :star2: 5122 | [#Windsurf](https://windsurf.com) | 2026-03-31 | [MIT](https://api.github.com/licenses/mit) |
+| [avante.nvim](https://github.com/yetone/avante.nvim) | Use your Neovim like using Cursor AI IDE! | :star2: 17922 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-05-23 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [copilot.vim](https://github.com/github/copilot.vim) | Neovim plugin for GitHub Copilot | :star2: 11611 | <No AI models were found> | 2026-01-09 | Other |
+| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | ✨ AI Coding, Vim Style | :star2: 6610 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-05-16 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [windsurf.vim](https://github.com/Exafunction/windsurf.vim) | Free, ultrafast Copilot alternative for Vim and Neovim | :star2: 5121 | [#Windsurf](https://windsurf.com) | 2026-03-31 | [MIT](https://api.github.com/licenses/mit) |
 | [99](https://github.com/ThePrimeagen/99) | Neovim AI agent done right | :star2: 4653 | <No AI models were found> | 2026-05-02 | `<No license found>` |
 | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) | Fully featured & enhanced replacement for copilot.vim complete with API for i... | :star2: 4083 | <No AI models were found> | 2026-05-23 | [MIT](https://api.github.com/licenses/mit) |
 | [ChatGPT.nvim](https://github.com/jackMort/ChatGPT.nvim) | ChatGPT Neovim Plugin: Effortless Natural Language Generation with OpenAI's C... | :star2: 4003 | [#OpenAI](https://openai.com) | 2026-01-13 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim) | Chat with GitHub Copilot in Neovim | :star2: 3642 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) | 2026-05-18 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
-| [opencode.nvim](https://github.com/nickjvandyke/opencode.nvim) | Bridge Neovim and OpenCode AI to stay in your flow. | :star2: 3477 | <No AI models were found> | 2026-05-23 | [MIT](https://api.github.com/licenses/mit) |
-| [sidekick.nvim](https://github.com/folke/sidekick.nvim) | Your Neovim AI sidekick | :star2: 2614 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2026-04-22 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
-| [llama.vim](https://github.com/ggml-org/llama.vim) | Vim plugin for LLM-assisted code/text completion | :star2: 2020 | <No AI models were found> | 2026-05-14 | [MIT](https://api.github.com/licenses/mit) |
+| [opencode.nvim](https://github.com/nickjvandyke/opencode.nvim) | Bridge Neovim and OpenCode AI to stay in your flow. | :star2: 3478 | <No AI models were found> | 2026-05-24 | [MIT](https://api.github.com/licenses/mit) |
+| [sidekick.nvim](https://github.com/folke/sidekick.nvim) | Your Neovim AI sidekick | :star2: 2618 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2026-04-22 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [llama.vim](https://github.com/ggml-org/llama.vim) | Vim plugin for LLM-assisted code/text completion | :star2: 2021 | <No AI models were found> | 2026-05-14 | [MIT](https://api.github.com/licenses/mit) |
 | [gen.nvim](https://github.com/David-Kunz/gen.nvim) | Neovim plugin to generate text using LLMs with customizable prompts | :star2: 1526 | [#Ollama](https://ollama.com) | 2025-05-03 | [The Unlicense](https://api.github.com/licenses/unlicense) |
 | [supermaven-nvim](https://github.com/supermaven-inc/supermaven-nvim) | The official Neovim plugin for Supermaven | :star2: 1431 | <No AI models were found> | 2024-10-07 | [MIT](https://api.github.com/licenses/mit) |
 | [copilot-cmp](https://github.com/zbirenbaum/copilot-cmp) | Lua plugin to turn github copilot into a cmp source | :star2: 1371 | <No AI models were found> | 2024-12-11 | [MIT](https://api.github.com/licenses/mit) |
@@ -169,7 +170,7 @@ Plugins
 | [windsurf.nvim](https://github.com/Exafunction/windsurf.nvim) | A native neovim extension for Codeium | :star2: 1281 | [#Windsurf](https://windsurf.com) | 2026-04-02 | [MIT](https://api.github.com/licenses/mit) |
 | [minuet-ai.nvim](https://github.com/milanglacier/minuet-ai.nvim) | 💃 Dance with Intelligence in Your Code. Minuet offers code completion as-you-... | :star2: 1222 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) [#Windsurf](https://windsurf.com) | 2026-05-16 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
 | [vim-ai](https://github.com/madox2/vim-ai) | AI-powered code assistant for Vim. OpenAI and ChatGPT plugin for Vim and Neovim. | :star2: 1166 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2026-03-11 | [MIT](https://api.github.com/licenses/mit) |
-| [VectorCode](https://github.com/Davidyz/VectorCode) | A code repository indexing tool to supercharge your LLM experience. | :star2: 864 | [#Claude](https://claude.ai) | 2026-02-23 | [MIT](https://api.github.com/licenses/mit) |
+| [VectorCode](https://github.com/Davidyz/VectorCode) | A code repository indexing tool to supercharge your LLM experience. | :star2: 865 | [#Claude](https://claude.ai) | 2026-02-23 | [MIT](https://api.github.com/licenses/mit) |
 | [dingllm.nvim](https://github.com/yacineMTB/dingllm.nvim) | Yacine's LLM nvim scripts | :star2: 859 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2024-10-24 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [opencode.nvim](https://github.com/sudo-tee/opencode.nvim) | neovim frontend for opencode - a terminal-based AI coding agent | :star2: 832 | <No AI models were found> | 2026-05-23 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [parrot.nvim](https://github.com/frankroeder/parrot.nvim) | parrot.nvim 🦜 - the plugin that brings stochastic parrots to Neovim. | :star2: 789 | [#Claude](https://claude.ai) [#DeepSeek](https://chat.deepseek.com) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-05-20 | Other |
@@ -179,11 +180,11 @@ Plugins
 | [neoai.nvim](https://github.com/Bryley/neoai.nvim) | Neovim plugin for intracting with GPT models from OpenAI | :star2: 570 | <No AI models were found> | 2025-07-25 | [MIT](https://api.github.com/licenses/mit) |
 | [smartcat](https://github.com/efugier/smartcat) | Putting a brain behind `cat`🐈‍⬛ Integrating language models in the Unix comma... | :star2: 564 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2025-02-23 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [aider.nvim](https://github.com/joshuavial/aider.nvim) | `<No description found>` | :star2: 556 | <No AI models were found> | 2025-04-17 | [MIT](https://api.github.com/licenses/mit) |
-| [neural](https://github.com/dense-analysis/neural) | AI Vim/Neovim code generation plugin (OpenAI, ChatGPT, and more) | :star2: 512 | [#OpenAI](https://openai.com) | 2025-07-22 | [MIT](https://api.github.com/licenses/mit) |
+| [neural](https://github.com/dense-analysis/neural) | AI Vim/Neovim code generation plugin (OpenAI, ChatGPT, and more) | :star2: 513 | [#OpenAI](https://openai.com) | 2025-07-22 | [MIT](https://api.github.com/licenses/mit) |
 | [llm.nvim](https://github.com/Kurama622/llm.nvim) | A large language model (LLM) plugin for Neovim, provides commands to interact... | :star2: 475 | <No AI models were found> | 2026-04-19 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
 | [neocodeium](https://github.com/monkoose/neocodeium) | free AI completion plugin for neovim | :star2: 471 | [#Windsurf](https://windsurf.com) | 2026-05-19 | [MIT](https://api.github.com/licenses/mit) |
+| [agentic.nvim](https://github.com/carlos-algms/agentic.nvim) | Agentic Chat Interface directly in Neovim with ACP providers from Claude-Code... | :star2: 469 | <No AI models were found> | 2026-05-24 | [MIT](https://api.github.com/licenses/mit) |
 | [claude.vim](https://github.com/pasky/claude.vim) | Claude vim plugin for AI pair programming - a hacker's gateway to LLMs | :star2: 469 | [#Claude](https://claude.ai) [#Windsurf](https://windsurf.com) | 2025-05-22 | [MIT](https://api.github.com/licenses/mit) |
-| [agentic.nvim](https://github.com/carlos-algms/agentic.nvim) | Agentic Chat Interface directly in Neovim with ACP providers from Claude-Code... | :star2: 465 | <No AI models were found> | 2026-05-20 | [MIT](https://api.github.com/licenses/mit) |
 | [copilot-lsp](https://github.com/copilotlsp-nvim/copilot-lsp) | Copilot LSP: A lightweight and extensible Neovim plugin for integrating GitHu... | :star2: 453 | <No AI models were found> | 2026-03-15 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [magenta.nvim](https://github.com/dlants/magenta.nvim) | A tool-use-focused LLM plugin for neovim. | :star2: 448 | <No AI models were found> | 2026-05-16 | [MIT](https://api.github.com/licenses/mit) |
 | [tabnine-nvim](https://github.com/codota/tabnine-nvim) | Tabnine Client for Neovim | :star2: 414 | <No AI models were found> | 2026-05-04 | `<No license found>` |
@@ -191,8 +192,8 @@ Plugins
 | [nvim-aider](https://github.com/GeorgesAlkhouri/nvim-aider) | 🤖 Seamlessly integrate Aider with Neovim for an enhanced AI-assisted coding e... | :star2: 376 | <No AI models were found> | 2025-10-28 | [MIT](https://api.github.com/licenses/mit) |
 | [text-to-colorscheme](https://github.com/svermeulen/text-to-colorscheme) | Neovim colorschemes generated on the fly with a text prompt using ChatGPT | :star2: 317 | [#OpenAI](https://openai.com) | 2024-08-14 | [MIT](https://api.github.com/licenses/mit) |
 | [goose.nvim](https://github.com/azorng/goose.nvim) | seamless neovim integration with goose - work with a powerful AI agent withou... | :star2: 310 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-04-16 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [haunt.nvim](https://github.com/TheNoeTrevino/haunt.nvim) | Ghost text bookmarks for Neovim | :star2: 300 | <No AI models were found> | 2026-05-22 | [MIT](https://api.github.com/licenses/mit) |
 | [vim-plugin](https://github.com/kiteco/vim-plugin) | The Kite plugin for Vim. | :star2: 300 | <No AI models were found> | 2021-10-25 | [BSD 3-Clause "New" or "Revised"](https://api.github.com/licenses/bsd-3-clause) |
-| [haunt.nvim](https://github.com/TheNoeTrevino/haunt.nvim) | Ghost text bookmarks for Neovim | :star2: 299 | <No AI models were found> | 2026-05-22 | [MIT](https://api.github.com/licenses/mit) |
 | [ai.vim](https://github.com/aduros/ai.vim) | Generate and edit text in Neovim using OpenAI and GPT. | :star2: 299 | [#OpenAI](https://openai.com) | 2023-12-16 | [ISC](https://api.github.com/licenses/isc) |
 | [vim_codex](https://github.com/tom-doerr/vim_codex) | Supercharge your Vim editor with AI-powered code completion using OpenAI Code... | :star2: 290 | [#OpenAI](https://openai.com) | 2024-03-28 | [MIT](https://api.github.com/licenses/mit) |
 | [chatgpt.nvim](https://github.com/terror/chatgpt.nvim) | Query ChatGPT in Neovim | :star2: 277 | [#OpenAI](https://openai.com) | 2023-04-09 | [Creative Commons Zero v1.0 Universal](https://api.github.com/licenses/cc0-1.0) |
@@ -235,6 +236,7 @@ Plugins
 | [neollama](https://github.com/paradoxical-dev/neollama) | A UI meant for interacting with Ollama models from within Neovim. | :star2: 40 | [#Ollama](https://ollama.com) | 2025-10-22 | `<No license found>` |
 | [naVi](https://github.com/deifyed/naVi) | Your NeoVim assistant | :star2: 39 | <No AI models were found> | 2023-05-16 | [MIT](https://api.github.com/licenses/mit) |
 | [vision.nvim](https://github.com/azorng/vision.nvim) | share your neovim context with agents through visual mode | :star2: 38 | [#Claude](https://claude.ai) | 2026-05-11 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [learning.nvim](https://github.com/Hashino/learning.nvim) | ai assisted coding learning | :star2: 34 | [#OpenAI](https://openai.com) | 2026-05-23 | [MIT](https://api.github.com/licenses/mit) |
 | [nvim-redraft](https://github.com/jim-at-jibba/nvim-redraft) | Fast inline AI edits | :star2: 33 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2026-04-27 | [MIT](https://api.github.com/licenses/mit) |
 | [nvim-ctx-ingest](https://github.com/0xrusowsky/nvim-ctx-ingest) | A Neovim plugin for efficiently sharing your project's most relevant context ... | :star2: 32 | [#Claude](https://claude.ai) | 2025-03-18 | [MIT](https://api.github.com/licenses/mit) |
 | [docscribe.nvim](https://github.com/AdrianMosnegutu/docscribe.nvim) | A Neovim plugin for generating inline documentation for your functions using ... | :star2: 32 | [#Ollama](https://ollama.com) | 2025-07-20 | [MIT](https://api.github.com/licenses/mit) |
@@ -245,20 +247,20 @@ Plugins
 | [nvim-bard](https://github.com/martineausimon/nvim-bard) | A minimal plugin to interact with Google Bard in Neovim | :star2: 29 | <No AI models were found> | 2023-08-29 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
 | [ai-review.vim](https://github.com/yuki-yano/ai-review.vim) | `<No description found>` | :star2: 29 | [#OpenAI](https://openai.com) | 2024-10-29 | Other |
 | [deepseek.nvim](https://github.com/FLYDonkey123/deepseek.nvim) | `<No description found>` | :star2: 28 | [#DeepSeek](https://chat.deepseek.com) | 2025-01-03 | `<No license found>` |
-| [learning.nvim](https://github.com/Hashino/learning.nvim) | ai assisted coding learning | :star2: 26 | [#OpenAI](https://openai.com) | 2026-05-23 | [MIT](https://api.github.com/licenses/mit) |
 | [telescope-gpt](https://github.com/HPRIOR/telescope-gpt) | Extends telescope with the jackMort/ChatGPT.nvim plugin | :star2: 22 | <No AI models were found> | 2024-04-20 | `<No license found>` |
 | [claucode.nvim](https://github.com/avifenesh/claucode.nvim) | A Neovim bridge plugin for Claude Code CLI, providing seamless integration be... | :star2: 22 | [#Claude](https://claude.ai) | 2026-05-01 | [MIT](https://api.github.com/licenses/mit) |
 | [claude-chat.nvim](https://github.com/WTFox/claude-chat.nvim) | A Neovim wrapper for Claude Code workflows. | :star2: 22 | [#Claude](https://claude.ai) | 2026-03-27 | `<No license found>` |
-| [jumpy.nvim](https://github.com/cachebag/jumpy.nvim) | Min-maxing AI assisted programming. | :star2: 20 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2026-05-24 | [MIT](https://api.github.com/licenses/mit) |
+| [jumpy.nvim](https://github.com/cachebag/jumpy.nvim) | Min-maxing AI assisted programming. | :star2: 21 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2026-05-24 | [MIT](https://api.github.com/licenses/mit) |
 | [explain-it.nvim](https://github.com/tdfacer/explain-it.nvim) | Simple and effective AI integration with your favorite Neovim text editor! As... | :star2: 19 | [#OpenAI](https://openai.com) | 2026-03-08 | [MIT](https://api.github.com/licenses/mit) |
 | [exit.nvim](https://github.com/3v0k4/exit.nvim) | Prompt LLMs to write neovim commands | :star2: 18 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2024-12-19 | [MIT](https://api.github.com/licenses/mit) |
 | [copy-tree.nvim](https://github.com/AdiY00/copy-tree.nvim) | `<No description found>` | :star2: 18 | <No AI models were found> | 2024-11-23 | [MIT](https://api.github.com/licenses/mit) |
 | [prompter.vim](https://github.com/solyarisoftware/prompter.vim) | vim as a perfect large language models prompts playground | :star2: 18 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2023-11-29 | `<No license found>` |
-| [tgpt.nvim](https://github.com/RayenMnif/tgpt.nvim) | AI Chatbots in Neovim without needing API keys | :star2: 17 | <No AI models were found> | 2025-09-13 | `<No license found>` |
 | [LLuMinate.nvim](https://github.com/k2589/LLuMinate.nvim) | Neovim plugin for automaticaly passing extra context for LLM on code snippet ... | :star2: 17 | <No AI models were found> | 2024-10-11 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [tgpt.nvim](https://github.com/RayenMnif/tgpt.nvim) | AI Chatbots in Neovim without needing API keys | :star2: 16 | <No AI models were found> | 2025-09-13 | `<No license found>` |
 | [describe-command.nvim](https://github.com/oflisback/describe-command.nvim) | Describe what to do in neovim and have OpenAI figure out a command to accompl... | :star2: 16 | [#OpenAI](https://openai.com) | 2024-09-15 | Other |
 | [conduit.nvim](https://github.com/kitallen23/conduit.nvim) | `<No description found>` | :star2: 15 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2025-09-30 | [MIT](https://api.github.com/licenses/mit) |
 | [gpt4all.nvim](https://github.com/WhiteBlackGoose/gpt4all.nvim) | Plugin to work with gpt4all. Fork of ChatGPT.nvim | :star2: 14 | [#OpenAI](https://openai.com) | 2023-06-11 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
+| [pi.nvim](https://github.com/erkamkavak/pi.nvim) | Neovim plugin for pi coding agent | :star2: 14 | <No AI models were found> | 2026-05-13 | `<No license found>` |
 | [prompt-ai.vim](https://github.com/psaia/prompt-ai.vim) | prompt-ai.vim - Quickly configure you vim runtime with natural language. | :star2: 14 | [#OpenAI](https://openai.com) | 2025-06-11 | `<No license found>` |
 | [chatter.nvim](https://github.com/Dan7h3x/chatter.nvim) | A simple/functional automated plugin to chat with local LLMs  | :star2: 12 | [#Ollama](https://ollama.com) | 2024-12-25 | [GNU General Public v3.0](https://api.github.com/licenses/gpl-3.0) |
 | [vim-openai](https://github.com/ShoofLLC/vim-openai) | nvim plugin for openai codex | :star2: 12 | [#OpenAI](https://openai.com) | 2023-04-22 | Other |
