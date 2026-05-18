@@ -105,6 +105,7 @@ This page is auto-generated and was last updated on "2026-05-17"
 - https://github.com/mthbernardes/codeexplain.nvim
 - https://github.com/mzguntalan/vibe-level.nvim
 - https://github.com/napisani/context-nvim
+- https://github.com/not-manu/filemention.nvim
 - https://github.com/oelmekki/make-my-code-better.vim
 - https://github.com/oflisback/describe-command.nvim
 - https://github.com/olimorris/codecompanion.nvim
