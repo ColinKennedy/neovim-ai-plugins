@@ -198,7 +198,6 @@ Plugins
 | [nvim-llama](https://github.com/jpmcb/nvim-llama) | 🦙 Ollama interfaces for Neovim | :star2: 273 | <No AI models were found> | 2025-03-09 | [MIT](https://api.github.com/licenses/mit) |
 | [cmp-ai](https://github.com/tzachar/cmp-ai) | `<No description found>` | :star2: 273 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-02-08 | [MIT](https://api.github.com/licenses/mit) |
 | [vim-llm-agent](https://github.com/CoderCookE/vim-llm-agent) | Vim Plugin For ChatGPT | :star2: 272 | [#Claude](https://claude.ai) [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2026-02-25 | [The Unlicense](https://api.github.com/licenses/unlicense) |
-<<<<<<< HEAD
 | [cursortab.nvim](https://github.com/reachingforthejack/cursortab.nvim) | WIP! Reverse engineered Cursor Tab API in Neovim | :star2: 270 | <No AI models were found> | 2025-04-16 | [MIT](https://api.github.com/licenses/mit) |
 | [codex.nvim](https://github.com/johnseth97/codex.nvim) | OpenAI Codex plugin for Neovim | :star2: 241 | [#OpenAI](https://openai.com) | 2025-11-20 | `<No license found>` |
 | [blink-copilot](https://github.com/fang2hou/blink-copilot) | ⚙️ Configurable GitHub Copilot blink.cmp source for Neovim | :star2: 226 | <No AI models were found> | 2025-10-29 | [MIT](https://api.github.com/licenses/mit) |
@@ -256,7 +255,6 @@ Plugins
 | [prompter.vim](https://github.com/solyarisoftware/prompter.vim) | vim as a perfect large language models prompts playground | :star2: 18 | [#Ollama](https://ollama.com) [#OpenAI](https://openai.com) | 2023-11-29 | `<No license found>` |
 | [tgpt.nvim](https://github.com/RayenMnif/tgpt.nvim) | AI Chatbots in Neovim without needing API keys | :star2: 17 | <No AI models were found> | 2025-09-13 | `<No license found>` |
 | [LLuMinate.nvim](https://github.com/k2589/LLuMinate.nvim) | Neovim plugin for automaticaly passing extra context for LLM on code snippet ... | :star2: 17 | <No AI models were found> | 2024-10-11 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
-| [vision.nvim](https://github.com/azorng/vision.nvim) | share your neovim context with agents through visual mode | :star2: 16 | [#Claude](https://claude.ai) | 2026-05-09 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
 | [describe-command.nvim](https://github.com/oflisback/describe-command.nvim) | Describe what to do in neovim and have OpenAI figure out a command to accompl... | :star2: 16 | [#OpenAI](https://openai.com) | 2024-09-15 | Other |
 | [conduit.nvim](https://github.com/kitallen23/conduit.nvim) | `<No description found>` | :star2: 15 | [#Claude](https://claude.ai) [#OpenAI](https://openai.com) | 2025-09-30 | [MIT](https://api.github.com/licenses/mit) |
 | [gpt4all.nvim](https://github.com/WhiteBlackGoose/gpt4all.nvim) | Plugin to work with gpt4all. Fork of ChatGPT.nvim | :star2: 14 | [#OpenAI](https://openai.com) | 2023-06-11 | [Apache 2.0](https://api.github.com/licenses/apache-2.0) |
