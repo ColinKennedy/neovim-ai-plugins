@@ -65,6 +65,7 @@ This page is auto-generated and was last updated on "2026-05-24"
 - https://github.com/dlants/magenta.nvim
 - https://github.com/dustinblackman/oatmeal.nvim
 - https://github.com/efugier/smartcat
+- https://github.com/erkamkavak/pi.nvim
 - https://github.com/fang2hou/blink-copilot
 - https://github.com/folke/sidekick.nvim
 - https://github.com/frankroeder/parrot.nvim
