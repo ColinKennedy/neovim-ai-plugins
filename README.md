@@ -26,6 +26,7 @@ This page is auto-generated and was last updated on "2026-05-18"
 - https://github.com/FLYDonkey123/deepseek.nvim
 - https://github.com/GeorgesAlkhouri/nvim-aider
 - https://github.com/HPRIOR/telescope-gpt
+- https://github.com/Hashino/learning.nvim
 - https://github.com/IwasakiYuuki/ai-assistant.nvim
 - https://github.com/Jacob411/Ollama-Copilot
 - https://github.com/Kurama622/llm.nvim
@@ -41,6 +42,7 @@ This page is auto-generated and was last updated on "2026-05-18"
 - https://github.com/ShoofLLC/vim-openai
 - https://github.com/TamaMcGlinn/vim-termhelp
 - https://github.com/TheNoeTrevino/haunt.nvim
+- https://github.com/ThePrimeagen/99
 - https://github.com/WhiteBlackGoose/gpt4all.nvim
 - https://github.com/Xuyuanp/nes.nvim
 - https://github.com/aduros/ai.vim
@@ -54,6 +56,7 @@ This page is auto-generated and was last updated on "2026-05-18"
 - https://github.com/azorng/vision.nvim
 - https://github.com/bakks/butterfish.nvim
 - https://github.com/banjo/contextfiles.nvim
+- https://github.com/cachebag/jumpy.nvim
 - https://github.com/carlos-algms/agentic.nvim
 - https://github.com/codota/tabnine-nvim
 - https://github.com/copilotlsp-nvim/copilot-lsp
@@ -126,6 +129,7 @@ This page is auto-generated and was last updated on "2026-05-18"
 - https://github.com/svermeulen/text-to-colorscheme
 - https://github.com/tdfacer/explain-it.nvim
 - https://github.com/terror/chatgpt.nvim
+- https://github.com/timothyckl/tau.nvim
 - https://github.com/tom-doerr/vim_codex
 - https://github.com/towry/commit-msg-sg.nvim
 - https://github.com/tzachar/cmp-ai
