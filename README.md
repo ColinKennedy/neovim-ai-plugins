@@ -89,6 +89,7 @@ This page is auto-generated and was last updated on "2026-05-24"
 - https://github.com/jpmcb/nvim-llama
 - https://github.com/k2589/LLuMinate.nvim
 - https://github.com/kamou/gpt-vim
+- https://github.com/khaninm/ainnoying.nvim
 - https://github.com/kitallen23/conduit.nvim
 - https://github.com/kiteco/vim-plugin
 - https://github.com/lambdalisue/vim-butler
