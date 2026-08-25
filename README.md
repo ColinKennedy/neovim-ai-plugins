@@ -121,7 +121,6 @@ This page is auto-generated and was last updated on "2026-08-02"
 - https://github.com/piersolenski/wtf.nvim
 - https://github.com/psaia/prompt-ai.vim
 - https://github.com/pwnwriter/code2prompt.nvim
-- https://github.com/rakotomandimby/code-ai.nvim
 - https://github.com/rakotomandimby/deepseek-complete
 - https://github.com/reachingforthejack/cursortab.nvim
 - https://github.com/samir-roy/code-bridge.nvim
