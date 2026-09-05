@@ -76,6 +76,7 @@ This page is auto-generated and was last updated on "2026-08-25"
 - https://github.com/gsuuon/llm.nvim
 - https://github.com/gsuuon/model.nvim
 - https://github.com/gutsavgupta/nvim-gemini-companion
+- https://github.com/hebercosfer/floating-claude.nvim
 - https://github.com/heilgar/nochat.nvim
 - https://github.com/huynle/ogpt.nvim
 - https://github.com/iovdin/tune.nvim
