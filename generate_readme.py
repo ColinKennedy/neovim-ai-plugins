@@ -55,13 +55,13 @@ class _SortMethod(enum.StrEnum):
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
-class _Model:
-    """An AI model, used to generate code and other text.
+class _Harness:
+    """An AI provider, router, or harness, used to generate code and other text.
 
     Attributes:
-        search_terms: The strings used to "find" the model in a plugin's documentation.
-        name: The real, unabridged name of the model.
-        url: The page online where you can learn more about the model.
+        search_terms: The strings used to "find" the harness in a plugin's documentation.
+        name: The real, unabridged name of the harness.
+        url: The page online where you can learn more about the harness.
 
     """
 
@@ -70,7 +70,7 @@ class _Model:
     url: str
 
     def get_search_terms(self) -> list[str]:
-        """Get the string used to "find" the model in a plugin's documentation."""
+        """Get the string used to "find" the harness in a plugin's documentation."""
         if not self.search_terms:
             return [self.name]
 
@@ -80,22 +80,45 @@ class _Model:
         return list(self.search_terms)
 
     def serialize_to_markdown_tag(self) -> str:
-        """Link to where the user can learn more about the model."""
+        """Link to where the user can learn more about the harness."""
         return f"[#{self.name}]({self.url})"
 
 
-_MODELS = (
-    _Model(search_terms="claude", name="Claude", url="https://claude.ai"),
-    _Model(search_terms="deepseek", name="DeepSeek", url="https://chat.deepseek.com"),
-    _Model(search_terms="ollama", name="Ollama", url="https://ollama.com"),
-    _Model(search_terms="openai", name="OpenAI", url="https://openai.com"),
-    _Model(search_terms="tabnine", name="TabNine", url="https://www.tabnine.com"),
-    _Model(
+_HARNESSES = (
+    _Harness(search_terms="claude", name="Claude", url="https://claude.ai"),
+    _Harness(search_terms="deepseek", name="DeepSeek", url="https://chat.deepseek.com"),
+    _Harness(search_terms="gemini", name="Gemini", url="https://gemini.google.com"),
+    _Harness(search_terms="groq", name="Groq", url="https://groq.com"),
+    _Harness(
+        search_terms=("huggingface", "hugging face"),
+        name="Hugging Face",
+        url="https://huggingface.co",
+    ),
+    _Harness(search_terms="litellm", name="LiteLLM", url="https://www.litellm.ai"),
+    _Harness(
+        search_terms="llama.cpp",
+        name="llama.cpp",
+        url="https://github.com/ggml-org/llama.cpp",
+    ),
+    _Harness(
+        search_terms=("lm studio", "lmstudio"),
+        name="LM Studio",
+        url="https://lmstudio.ai",
+    ),
+    _Harness(search_terms="mistral", name="Mistral", url="https://mistral.ai"),
+    _Harness(search_terms="ollama", name="Ollama", url="https://ollama.com"),
+    _Harness(search_terms="openai", name="OpenAI", url="https://openai.com"),
+    _Harness(search_terms="openrouter", name="OpenRouter", url="https://openrouter.ai"),
+    _Harness(
+        search_terms="orcarouter", name="OrcaRouter", url="https://www.orcarouter.ai"
+    ),
+    _Harness(search_terms=("codium", "qodo"), name="Qodo", url="https://www.qodo.ai"),
+    _Harness(search_terms="tabnine", name="TabNine", url="https://www.tabnine.com"),
+    _Harness(
         search_terms=("codeium", "windsurf"),
         name="Windsurf",
         url="https://windsurf.com",
     ),
-    _Model(search_terms=("codium", "qodo"), name="Qodo", url="https://www.qodo.ai"),
 )
 
 
@@ -268,9 +291,9 @@ class _GitHubRow:
     """The data to serialize into GitHub markdown row text, later."""
 
     description: str | None
+    harnesses: set[_Harness]
     last_commit_date: str
     license: _GitHubRepositoryDetailsLicense | None
-    models: set[_Model]
     name: str
     star_count: int
     status: str | None
@@ -530,14 +553,14 @@ def _get_github_table_rows(
             description = _get_ellided_text(description, _DESCRIPTION_LENGTH)
 
         category = _get_primary_category(repository.documentation)
-        models = _get_models(repository.documentation)
+        harnesses = _get_harnesses(repository.documentation)
 
         output[category].append(
             _GitHubRow(
                 description=description,
+                harnesses=harnesses,
                 last_commit_date=_get_last_commit_date(details),
                 license=details.get("license"),
-                models=models,
                 name=repository.name,
                 star_count=details["stargazers_count"],
                 status=_get_status(repository.documentation),
@@ -589,24 +612,24 @@ def _get_last_commit_date(details: _GitHubRepositoryDetails) -> str:
     return data.strftime("%Y-%m-%d")
 
 
-def _get_models(documentation: typing.Iterable[str]) -> set[_Model]:
-    """Parse ``documentation`` and look for supported AI models.
+def _get_harnesses(documentation: typing.Iterable[str]) -> set[_Harness]:
+    """Parse ``documentation`` and look for supported AI harnesses.
 
     Args:
         documentation: Some Neovim plugin's information to check.
 
     Returns:
-        All found, supported models, if any.
+        All found, supported harnesses, if any.
 
     """
-    output: set[_Model] = set()
+    output: set[_Harness] = set()
 
     for page in documentation:
         lowered = page.lower()
         output.update(
-            model
-            for model in _MODELS
-            if any(term for term in model.get_search_terms() if term in lowered)
+            harness
+            for harness in _HARNESSES
+            if any(term for term in harness.get_search_terms() if term in lowered)
         )
 
     return output
@@ -1142,9 +1165,11 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
     tables: list[str] = []
 
     for row in rows:
-        models = (
-            " ".join(sorted(model.serialize_to_markdown_tag() for model in row.models))
-            or "<No AI models were found>"
+        harnesses = (
+            " ".join(
+                sorted(harness.serialize_to_markdown_tag() for harness in row.harnesses)
+            )
+            or "<No AI harnesses were found>"
         )
 
         license = "`<No license found>`"
@@ -1156,15 +1181,15 @@ def _serialize_github_table(rows: typing.Iterable[_GitHubRow]) -> str | None:
             row.get_repository_label(),
             row.description or "`<No description found>`",
             f":star2: {row.star_count}",
-            models,
+            harnesses,
             row.last_commit_date,
             license,
         ]
         tables.append(f"| {' | '.join(parts)} |")
 
     header = [
-        "| :ab: Name | :notebook: Description | :star2: Stars | :robot: Models | :date: Updated | :balance_scale: License |",
-        "| --------- | ---------------------- | ------------- | -------------- | -------------- | ----------------------- |",
+        "| :ab: Name | :notebook: Description | :star2: Stars | :robot: Harnesses | :date: Updated | :balance_scale: License |",
+        "| --------- | ---------------------- | ------------- | ------------------ | -------------- | ----------------------- |",
     ]
 
     return "\n".join(itertools.chain(header, tables))
